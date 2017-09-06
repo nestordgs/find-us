@@ -1,12 +1,7 @@
-import Api From '@/services/Api'
+import Api from '@/services/Api'
 
 export default {
-    register (credentials) {
-        return Api().post('register', credentials)
-    }
+  register (credentials) {
+    return Api().post('register', credentials)
+  }
 }
-
-// AuthenticationService.register({
-//     email: 'ndgutierrez@bancomercantil.com'
-//     password: '123456'
-// })
