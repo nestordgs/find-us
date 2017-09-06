@@ -1,4 +1,6 @@
 const express = require('express');
+const categoryRoutes = require('../router/category.route');
+
 const router = express.Router();
 
 router.post('/register', (req, res) => {
@@ -17,6 +19,8 @@ router.route('/test')
         res.send({
             message: 'this is from test method get'
         })
-    })
+    });
 
-module.exports = router
+router.use('/category', categoryRoutes);
+
+module.exports = router;
