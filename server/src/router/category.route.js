@@ -7,6 +7,10 @@ const router = express.Router();
 router.route('/')
     .get(categoryCtrl.list)
     .post(categoryCtrl.create);
+router.route('/:id')
+    .get(categoryCtrl.get)
+    .put(categoryCtrl.update)
+    .delete(categoryCtrl.delete);
 
-module.export = router;
+module.exports = router;
 

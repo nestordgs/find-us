@@ -2,5 +2,5 @@ server/node_modules
 front/node_modules
 
 .idea/
-
+npm-debug.log
 server/src/config/db.js
