@@ -34,12 +34,11 @@
           this.resetForm()
           this.getLastVal()
         }).catch(response => {
-          Notify.danger('Error', 'Algo ha salido mal revisa la consola')
-          console.log(response.data)
+          Notify.danger('Error', 'Algo ha salido mal')
         })
       },
       getLastVal () {
-        Api().get('/category/getLast').then(response => {
+        Api().post('/category/getLast').then(response => {
           this.category.id_categoria = response.data.id
         })
       },

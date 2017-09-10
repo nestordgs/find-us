@@ -8,7 +8,7 @@ const Category = mongoose.model('categoria');
  */
 exports.get = (req, res) => {
   Category.find({id_categoria: req.params.id}, (err, category) => {
-    if (err) return res.send(err);
+    if (err) return res.status(400).send(err);
     if (category.length === 0) return res.status(404).send({ message: 'La Categoria no existe' });
     res.send(category);
   });
@@ -27,7 +27,7 @@ exports.create = (req, res) => {
   });
     
   new_category.save((err, category) => {
-    if (err) return res.send(err);
+    if (err) return res.status(400).send(err.errors);
     res.send({message: 'Categoria Creada Exitosamente'});
   });
 };
@@ -39,7 +39,7 @@ exports.create = (req, res) => {
  */
 exports.update = (req, res) => {
   Category.findByIdAndUpdate(req.params.id, req.body, (err, category) => {
-    if (err) return res.send(err);
+    if (err) return res.status(400).send(err);
     res.send({message: 'Categoria Actualizada Exitosamente'});
   });
 };
@@ -51,7 +51,7 @@ exports.update = (req, res) => {
  */
 exports.delete = (req, res) => {
   Category.findByIdAndRemove(req.params.id, (err, category) => {
-    if (err) return res.status(404).send(err);
+    if (err) return res.status(400).send(err);
     res.send({message: 'Categoria Eliminada Exitosamente'});
   });
 };
@@ -76,12 +76,10 @@ exports.list = (req, res, next) => {
  * @param next
  */
 exports.last = (req, res, next) => {
-  Category.last()
-    .then(category => {
-      let next_value = parseInt(category.id_categoria) + 1
-      res.send({id: next_value})
-    })
-    .catch(e => next(e))
+  Category.last().then(category => {
+    let new_id = parseFloat(category.id_categoria) + 1
+    res.send({id: new_id})
+  }).catch(e => next(e))
 };
 
 /**
@@ -91,7 +89,6 @@ exports.last = (req, res, next) => {
  * @param next
  */
 exports.getIn = (req, res, next) => {
-  console.log(req.body)
   Category.getByArray(req.body.opt)
     .then(categorys => {
       res.send(categorys)

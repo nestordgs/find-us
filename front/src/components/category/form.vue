@@ -1,14 +1,20 @@
 <!-- Created by Nestor on 9/9/2017. /-->
 <template>
     <form @submit.prevent="submit" novalidate v-cloak>
-        <div class="form-group">
-            <label for="id">ID</label>
+        <div class="form-group text-left">
+            <label for="id"><strong>ID</strong></label>
             <input v-model="data.id_categoria" type="text" class="form-control" id="id" name="id" aria-describedby="idHelp" readonly>
             <small id="idHelp" class="form-text text-muted">El <strong>ID</strong> de Categoria debe ser unico</small>
         </div>
-        <div class="form-group">
-            <label for="name">Nombre de Categoria</label>
-            <input v-model="data.categoria" type="text" class="form-control" id="name" placeholder="Nombre de Categoria">
+        <div class="form-group text-left">
+            <label for="name"><strong>Nombre de Categoria</strong></label>
+            <input v-model="data.categoria" type="text" class="form-control" id="name" name="name" placeholder="Nombre de Categoria">
+        </div>
+        <div class="form-group text-left">
+            <label for="descripcion">
+                <strong>Descripcion de Categoria</strong>
+            </label>
+            <input v-model="data.descripcion" type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese la descripcion de la categoria">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
@@ -18,7 +24,7 @@
 export default {
   props: {
     data: {
-      type: Object,
+      type: Array,
       required: true
     }
   },
