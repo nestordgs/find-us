@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>Crear Nueva Categoria</h1>
+                <h1>Categoria {{ $route.params.id }}</h1>
                 <form-category :data="category" @submit="submit"></form-category>
             </div>
         </div>
@@ -17,38 +17,27 @@
   export default {
     data () {
       return {
-        category: {
-          descripcion: '',
-          categoria: '',
-          id_categoria: ''
-        }
+        category: []
       }
     },
     methods: {
       prepareComponent () {
-        this.getLastVal()
+        this.getCategory(this.$route.params.id)
+      },
+      getCategory (id) {
+        Api().get('category/' + id).then(response => {
+          this.category = response.data[0]
+        }).catch(response => {
+          console.log(response)
+        })
       },
       submit (formData) {
-        Api().post('category/', formData).then(response => {
+        Api().put('category/' + this.category._id, formData).then(response => {
           Notify.success('Exitoso', response.data.message)
-          this.resetForm()
-          this.getLastVal()
         }).catch(response => {
           Notify.danger('Error', 'Algo ha salido mal revisa la consola')
           console.log(response.data)
         })
-      },
-      getLastVal () {
-        Api().get('/category/getLast').then(response => {
-          this.category.id_categoria = response.data.id
-        })
-      },
-      resetForm () {
-        this.category = {
-          descripcion: '',
-          categoria: '',
-          id_categoria: ''
-        }
       }
     },
     ready () {
