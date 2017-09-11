@@ -6,13 +6,22 @@ import Register from '@/components/Register'
 import Categorias from '@/components/category/list'
 import CategoriasEdit from '@/components/category/edit'
 import CategoriasAdd from '@/components/category/create'
+// Locations Components
+import Ubicaciones from '@/components/locations/list'
+import UbicacionesEdit from '@/components/locations/edit'
+import UbicacionesAdd from '@/components/locations/create'
+
 // Forms Components
 import FormCategory from '@/components/category/form'
+import FormLocation from '@/components/locations/form'
+
+// Common Components
 import CategoryName from '@/components/categoryNames'
 
 Vue.use(Router)
 
 Vue.component('form-category', FormCategory)
+Vue.component('form-location', FormLocation)
 Vue.component('name-category', CategoryName)
 
 export default new Router({
@@ -43,6 +52,20 @@ export default new Router({
       name: 'CategoriaAdd',
       component: CategoriasAdd
     },
+    {
+      path: '/ubicaciones',
+      name: 'Ubicaciones',
+      component: Ubicaciones
+    },
+    {
+      path: '/ubicaciones/:id',
+      name: 'UbicacionesEdit',
+      component: UbicacionesEdit
+    },
+    {
+      path: '/ubicaciones/add',
+      name: 'UbicacionesAdd',
+      component: UbicacionesAdd
     }
   ]
 })
