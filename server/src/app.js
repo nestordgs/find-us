@@ -11,7 +11,7 @@ app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
 
-mongoose.connect(DB.url, {useMongoClient: true});
+mongoose.connect(DB.url, DB.mongoCli);
 let conn = mongoose.connection;
 
 conn.on('error', console.error.bind(console, 'connection error:'));
