@@ -3,4 +3,4 @@ front/node_modules
 
 .idea/
 npm-debug.log
-server/src/config/db.js
+server/src/config/config.js
