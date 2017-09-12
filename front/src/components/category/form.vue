@@ -1,23 +1,23 @@
 <!-- Created by Nestor on 9/9/2017. /-->
 <template>
-    <form @submit.prevent="submit" novalidate v-cloak>
-        <div class="form-group text-left">
-            <label for="id"><strong>ID</strong></label>
-            <input v-model="data.id_categoria" type="text" class="form-control" id="id" name="id" aria-describedby="idHelp" readonly>
-            <small id="idHelp" class="form-text text-muted">El <strong>ID</strong> de Categoria debe ser unico</small>
-        </div>
-        <div class="form-group text-left">
-            <label for="name"><strong>Nombre de Categoria</strong></label>
-            <input v-model="data.categoria" type="text" class="form-control" id="name" name="name" placeholder="Nombre de Categoria">
-        </div>
-        <div class="form-group text-left">
-            <label for="descripcion">
-                <strong>Descripcion de Categoria</strong>
-            </label>
-            <input v-model="data.descripcion" type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese la descripcion de la categoria">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+  <v-form>
+    <v-text-field label="ID"
+                  name="id"
+                  v-model="data.id_categoria"
+                  disabled
+    ></v-text-field>
+    <v-text-field label="Nombre de Categoria"
+                  name="categoria"
+                  v-model="data.categoria"
+                  :rules="categoriaRules"
+                  required
+    ></v-text-field>
+    <v-text-field label="Descripcion de Categoria"
+                  name="categoria"
+                  v-model="data.descripcion"
+    ></v-text-field>
+    <v-btn primary dark @click="submit">Submit</v-btn>
+  </v-form>
 </template>
 
 <script>
@@ -29,7 +29,14 @@ export default {
     }
   },
   data () {
-    return {}
+    return {
+      categoriaRules: [
+        v => {
+          return !!v || 'Nombre de categoria requerido'
+        },
+        v => /[\s\S]{5,50}/.test(v) || 'Nombre de categoria debe contener minimo 5 caracteres y un maximo 50 caracteres'
+      ]
+    }
   },
   methods: {
     prepareComponent () {

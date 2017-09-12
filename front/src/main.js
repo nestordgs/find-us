@@ -5,10 +5,12 @@ import VueGoodTable from 'vue-good-table'
 import App from './App'
 import router from './router'
 import {Snotify} from 'vue-snotify'
-import 'bootstrap'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
 
 Vue.config.productionTip = false
 
+Vue.use(Vuetify)
 Vue.use(VueGoodTable)
 Vue.use(Snotify)
 

@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>Categoria {{ $route.params.id }}</h1>
+                <h3>Categoria {{ $route.params.id }}</h3>
                 <form-category :data="category" @submit="submit"></form-category>
             </div>
         </div>

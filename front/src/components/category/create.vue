@@ -1,12 +1,8 @@
 <!-- Created by Nestor on 9/9/2017. /-->
 <template>
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <h1>Crear Nueva Categoria</h1>
-                <form-category :data="category" @submit="submit"></form-category>
-            </div>
-        </div>
+      <h3>Crear Nueva Categoria</h3>
+      <form-category :data="category" @submit="submit"></form-category>
     </div>
 </template>
 
