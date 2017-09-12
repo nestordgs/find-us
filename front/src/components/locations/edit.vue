@@ -1,12 +1,8 @@
 <!-- Created by Nestor on 9/10/2017. /-->
 <template>
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <h1>Estado (Ubicacion) {{ $route.params.id }}</h1>
-                <form-location :data="location" @submit="submit"></form-location>
-            </div>
-        </div>
+      <h3 class="text-xs-justify text-sm-center">Estado (Ubicacion) {{ $route.params.id }}</h3>
+      <form-location :data="location" @submit="submit"></form-location>
     </div>
 </template>
 

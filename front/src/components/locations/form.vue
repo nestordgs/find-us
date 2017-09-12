@@ -1,32 +1,32 @@
 <!-- Created by Nestor on 9/10/2017. /-->
 <template>
-    <form @submit.prevent="submit" novalidate v-cloak>
-        <div class="form-group text-left">
-            <label for="id"><strong>ID</strong></label>
-            <input v-model="data.id_ubicacion" type="text" class="form-control" id="id" name="id" aria-describedby="idHelp" readonly>
-            <small id="idHelp" class="form-text text-muted">El <strong>ID</strong> de Ubicacion debe ser unico</small>
-        </div>
-        <div class="form-group text-left">
-            <label for="name"><strong>Nombre de Ubicacion</strong></label>
-            <input v-model="data.ubicacion" type="text" class="form-control" id="name" placeholder="Nombre de Categoria">
-        </div>
-        <br>
-        <div class="form-group text-justify">
-            <p class="text-left">
-                <strong>Seleccione las categorias en la cual podra ser utilizada</strong>
-            </p>
-            <label class="custom-control custom-checkbox" v-for="item in cat">
-                <input type="checkbox"
-                       class="custom-control-input"
-                       :value="item.id_categoria"
-                       v-model="data.id_categoria"
-                       name="isCategory[]">
-                <span class="custom-control-indicator"></span>
-                <span class="custom-control-description">{{ item.categoria }}</span>
+    <v-form>
+      <v-text-field label="ID"
+                    name="id"
+                    v-model="data.id_ubicacion"
+                    disabled
+      ></v-text-field>
+      <v-text-field label="Nombre de Categoria"
+                    name="categoria"
+                    v-model="data.ubicacion"
+                    required
+      ></v-text-field>
+      <v-text-field label="Descripcion de Categoria"
+                    name="categoria"
+                    v-model="data.descripcion"
+      ></v-text-field>
+      <v-layout row wrap>
+        <v-flex xs12 sm6 md3 v-for="categoria in categorias" class="text-xs-left">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" :value="categoria.id_categoria" v-model="data.id_categoria" name="isCategory[]">
+              <span class="checkbox-material"><span class="check"></span></span> {{ categoria.categoria }}
             </label>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+          </div>
+        </v-flex>
+      </v-layout>
+      <v-btn primary dark @click="submit">Submit</v-btn>
+  </v-form>
 </template>
 
 <script>
@@ -40,7 +40,7 @@
     },
     data () {
       return {
-        cat: []
+        categorias: []
       }
     },
     methods: {
@@ -52,7 +52,7 @@
       },
       getCategorys () {
         Api().get('category').then(response => {
-          this.cat = response.data
+          this.categorias = response.data
         }).catch(response => {
           console.log(response)
         })

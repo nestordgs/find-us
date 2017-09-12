@@ -22,7 +22,7 @@
         <td class="text-center">{{ props.row.id_ubicacion }}</td>
         <td class="text-justify">
               <!--<v-btn outline class="indigo&#45;&#45;text" @click.native.stop="dialog = true;getCategorysArray(props.row.id_categoria)">Open Dialog</v-btn>-->
-          <v-btn outline class="indigo--text" @click.native.stop="getCategorysArray(props.row.id_categoria)">Open Dialog</v-btn>
+          <v-btn outline class="indigo--text" @click="getCategorysArray(props.row.id_categoria)">Open Dialog</v-btn>
         </td>
         <td class="text-justify">{{ props.row.ubicacion }}</td>
         <td>
@@ -93,7 +93,7 @@
         })
       },
       getCategorysArray (categorys) {
-        Api().post('category/getIn', {opt: categorys.split(';')})
+        Api().post('category/getIn', { opt: categorys.split(';') })
           .then(response => {
             this.categorys = response.data
             this.dialog = true
