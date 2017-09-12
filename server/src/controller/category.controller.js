@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Category = mongoose.model('categoria');
+const mongoose = require('mongoose')
+const Category = mongoose.model('categoria')
 
 /**
  * Get Category.
@@ -8,11 +8,11 @@ const Category = mongoose.model('categoria');
  */
 exports.get = (req, res) => {
   Category.find({id_categoria: req.params.id}, (err, category) => {
-    if (err) return res.status(400).send(err);
-    if (category.length === 0) return res.status(404).send({ message: 'La Categoria no existe' });
-    res.send(category);
-  });
-};
+    if (err) return res.status(400).send(err)
+    if (category.length === 0) return res.status(404).send({ message: 'La Categoria no existe' })
+    res.send(category)
+  })
+}
 
 /**
  * Create Category.
@@ -20,17 +20,17 @@ exports.get = (req, res) => {
  * @param res
  */
 exports.create = (req, res) => {
-  let new_category = new Category({
+  let newCategory = new Category({
     id_categoria: req.body.id_categoria,
     categoria: req.body.categoria,
     descripcion: req.body.descripcion
-  });
-    
-  new_category.save((err, category) => {
-    if (err) return res.status(400).send(err.errors);
-    res.send({message: 'Categoria Creada Exitosamente'});
-  });
-};
+  })
+
+  newCategory.save((err, category) => {
+    if (err) return res.status(400).send(err.errors)
+    res.send({message: 'Categoria Creada Exitosamente'})
+  })
+}
 
 /**
  * Update Category.
@@ -39,10 +39,10 @@ exports.create = (req, res) => {
  */
 exports.update = (req, res) => {
   Category.findByIdAndUpdate(req.params.id, req.body, (err, category) => {
-    if (err) return res.status(400).send(err);
-    res.send({message: 'Categoria Actualizada Exitosamente'});
-  });
-};
+    if (err) return res.status(400).send(err)
+    res.send({message: 'Categoria Actualizada Exitosamente'})
+  })
+}
 
 /**
  * Delete Category.
@@ -51,10 +51,10 @@ exports.update = (req, res) => {
  */
 exports.delete = (req, res) => {
   Category.findByIdAndRemove(req.params.id, (err, category) => {
-    if (err) return res.status(400).send(err);
-    res.send({message: 'Categoria Eliminada Exitosamente'});
-  });
-};
+    if (err) return res.status(400).send(err)
+    res.send({message: 'Categoria Eliminada Exitosamente'})
+  })
+}
 
 /**
  * Get Category list.
@@ -67,7 +67,7 @@ exports.list = (req, res, next) => {
   Category.list({limit, skip})
     .then(categorys => res.send(categorys))
     .catch(e => next(e))
-};
+}
 
 /**
  * Get last #ID Category.
@@ -77,10 +77,12 @@ exports.list = (req, res, next) => {
  */
 exports.last = (req, res, next) => {
   Category.last().then(category => {
-    let new_id = parseFloat(category.id_categoria) + 1
-    res.send({id: new_id})
+    console.log(category)
+    let newId
+    (category) ? newId = parseFloat(category.id_categoria) + 1 : newId = 1
+    res.send({id: newId})
   }).catch(e => next(e))
-};
+}
 
 /**
  * Get Categorys in Array.
@@ -94,4 +96,4 @@ exports.getIn = (req, res, next) => {
       res.send(categorys)
     })
     .catch(e => next(e))
-};
+}

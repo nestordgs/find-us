@@ -1,25 +1,25 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const morgan = require('morgan');
-const mongoose = require('mongoose');
-const config = require('./config/config');
+const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const morgan = require('morgan')
+const mongoose = require('mongoose')
+const config = require('./config/config')
 
-const app = express();
+const app = express()
 
-app.use(morgan('combined'));
-app.use(bodyParser.json());
-app.use(cors());
+app.use(morgan('combined'))
+app.use(bodyParser.json())
+app.use(cors())
 
-mongoose.connect(config.db.url, config.db.opt);
-let conn = mongoose.connection;
+mongoose.connect(config.db.url, config.db.opt)
+let conn = mongoose.connection
 
-conn.on('error', console.error.bind(console, 'connection error:'));
+conn.on('error', console.error.bind(console, 'connection error:'))
 
 conn.once('open', function () {
-    console.log("Great success!")
-});
+  console.log('Great success!')
+})
 
-app.use('/api', require('./router'));
+app.use('/api', require('./router'))
 
-app.listen(config.port);
+app.listen(config.port)

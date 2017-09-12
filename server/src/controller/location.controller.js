@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Location = mongoose.model('ubicaciones');
+const mongoose = require('mongoose')
+const Location = mongoose.model('ubicaciones')
 
 /**
  * Get Location.
@@ -7,12 +7,12 @@ const Location = mongoose.model('ubicaciones');
  * @param res
  */
 exports.get = (req, res) => {
-    Location.find({id_ubicacion: req.params.id}, (err, location) => {
-        if (err) return res.status(400).send(err);
-        if (location.length === 0) return res.status(404).send({ message: 'La Ubicación no existe' });
-        res.send(location);
-    });
-};
+  Location.find({id_ubicacion: req.params.id}, (err, location) => {
+    if (err) return res.status(400).send(err)
+    if (location.length === 0) return res.status(404).send({ message: 'La Ubicación no existe' })
+    res.send(location)
+  })
+}
 
 /**
  * Create Location.
@@ -20,17 +20,17 @@ exports.get = (req, res) => {
  * @param res
  */
 exports.create = (req, res) => {
-  let new_location = new Location({
+  let newLocation = new Location({
     id_categoria: req.body.id_categoria.join(';'),
     id_ubicacion: req.body.id_ubicacion,
-    ubicacion: req.body.ubicacion,
-  });
+    ubicacion: req.body.ubicacion
+  })
 
-  new_location.save((err, location) => {
-      if (err) return res.status(400).send(err);
-      res.send({message: 'Nueva Ubicacion creada Exitosamente'});
-  });
-};
+  newLocation.save((err, location) => {
+    if (err) return res.status(400).send(err)
+    res.send({message: 'Nueva Ubicacion creada Exitosamente'})
+  })
+}
 
 /**
  * Update Location.
@@ -39,10 +39,10 @@ exports.create = (req, res) => {
  */
 exports.update = (req, res) => {
   Location.findByIDJoinAndUpdate(req.params.id, req.body).then(location => {
-      res.send({message: 'Ubicacion Actualizada Exitosamente'})
-    })
-    .catch(e => res.status(400).send(e));
-};
+    res.send({message: 'Ubicacion Actualizada Exitosamente'})
+  })
+    .catch(e => res.status(400).send(e))
+}
 
 /**
  * Delete Location.
@@ -51,10 +51,10 @@ exports.update = (req, res) => {
  */
 exports.delete = (req, res) => {
   Location.findByIdAndRemove(req.params.id, (err, location) => {
-    if (err) return res.status(400).send(err);
-    res.send({message: 'Ubicacion Eliminada Exitosamente'});
-  });
-};
+    if (err) return res.status(400).send(err)
+    res.send({message: 'Ubicacion Eliminada Exitosamente'})
+  })
+}
 
 /**
  * Get Location list.
@@ -63,11 +63,11 @@ exports.delete = (req, res) => {
  * @param next
  */
 exports.list = (req, res, next) => {
-    const { limit = 50, skip = 0 } = req.query;
-    Location.list({limit, skip})
-        .then(locations => res.send(locations))
-        .catch(e => next(e));
-};
+  const { limit = 50, skip = 0 } = req.query
+  Location.list({limit, skip})
+    .then(locations => res.send(locations))
+    .catch(e => next(e))
+}
 
 /**
  * Get last #ID Location.
@@ -77,7 +77,7 @@ exports.list = (req, res, next) => {
  */
 exports.last = (req, res, next) => {
   Location.last().then(locations => {
-    let new_id = parseFloat(locations.id_ubicacion) + 1
-    res.send({id: new_id})
+    let newId = (locations) ? parseFloat(locations.id_ubicacion) + 1 : 1
+    res.send({id: newId})
   }).catch(e => next(e))
-};
+}

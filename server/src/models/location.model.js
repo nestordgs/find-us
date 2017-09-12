@@ -43,7 +43,7 @@ LocationSchema.statics = {
    */
   findByIDJoinAndUpdate (id, body) {
     body.id_categoria = body.id_categoria.join(';')
-    return this.findByIdAndUpdate(id,body)
+    return this.findByIdAndUpdate(id, body)
       .exec()
   },
   /**
@@ -55,7 +55,7 @@ LocationSchema.statics = {
       .select('id_ubicacion')
       .sort({ id_ubicacion: -1 })
       .exec()
-  },
-};
+  }
+}
 
 module.exports = mongoose.model('ubicaciones', LocationSchema)

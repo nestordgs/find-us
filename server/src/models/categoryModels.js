@@ -50,11 +50,11 @@ CategorySchema.statics = {
    */
   getByArray (opt) {
     return this.find()
-      .where("id_categoria")
+      .where('id_categoria')
       .in(opt)
       .sort({ id_categoria: 1 })
       .exec()
   }
-};
+}
 
-module.exports = mongoose.model('categoria', CategorySchema);
+module.exports = mongoose.model('categoria', CategorySchema)
