@@ -10,6 +10,8 @@ import CategoriasAdd from '@/components/category/create'
 import Ubicaciones from '@/components/locations/list'
 import UbicacionesEdit from '@/components/locations/edit'
 import UbicacionesAdd from '@/components/locations/create'
+// Cities Components
+import Ciudades from '@/components/cities/list'
 
 // Forms Components
 import FormCategory from '@/components/category/form'
@@ -66,6 +68,11 @@ export default new Router({
       path: '/ubicaciones/add',
       name: 'UbicacionesAdd',
       component: UbicacionesAdd
+    },
+    {
+      path: '/ciudades/',
+      name: 'Ciudades',
+      component: Ciudades
     }
   ]
 })
