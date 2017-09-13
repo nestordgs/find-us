@@ -19,26 +19,68 @@
                       styleClass="table table-bordered">
         <template slot="table-row" scope="props">
           <td class="text-center">{{ props.row.id_ubicacion }}</td>
+          <td class="text-justify">{{ props.row.ciudad }}</td>
           <td class="text-justify">
-            <!--<v-btn outline class="indigo&#45;&#45;text" @click.native.stop="dialog = true;getCategorysArray(props.row.id_categoria)">Open Dialog</v-btn>-->
-            <v-btn outline class="indigo--text" @click="getCategorysArray(props.row.id_categoria)">Open Dialog</v-btn>
+            <v-btn outline class="indigo--text" @click="getLocation(props.row.id_ubicacion)">Ver Estado</v-btn>
           </td>
-          <td class="text-justify">{{ props.row.ubicacion }}</td>
+          </td>
+          <td class="text-justify">
+            <v-btn outline class="indigo--text" @click="getCategorysArray(props.row.id_categoria)">Ver Categorias</v-btn>
+          </td>
           <td>
-            <router-link :to="{ name: 'UbicacionesEdit', params: { id: props.row.id_ubicacion }}"
+            <router-link :to="{ name: 'CiudadesEdit', params: { id: props.row.id_ubicacion }}"
                          class="btn btn--raised btn--small warning theme--dark">
               Edit
             </router-link>
-            <v-btn small error dark @click="removeLocation(props.row._id)">
+            <v-btn small error dark @click="removeCities(props.row._id)">
               Delete
             </v-btn>
           </td>
         </template>
       </vue-good-table>
+
+
+      <v-dialog v-model="dialogCategorys">
+        <v-card>
+          <v-card-title class="headline">Categoria donde se utiliza esta Ciudad</v-card-title>
+          <v-data-table
+            :headers="headers"
+            :items="categorys"
+            hide-actions
+            class="elevation-1">
+            <template slot="items" scope="props">
+              <td class="text-xs-center"><strong>{{ props.item.id_categoria }}</strong></td>
+              <td class="text-xs-justify">{{ props.item.categoria }}</td>
+            </template>
+          </v-data-table>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn class="green--text darken-1" flat="flat" @click.native="dialogCategorys = false">Cerrar</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+
+      <v-dialog v-model="dialogState" persistent width="30%">
+        <v-card>
+          <v-card-title class="headline">Estado donde se utiliza esta Ciudad</v-card-title>
+            <!-- Aqui 
+              debe
+            ir
+              El
+            Contenido -->
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn class="green--text darken-1" flat="flat" @click.native="dialogState = false">Cerrar</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </div>
 </template>
 
 <script>
+  import Api from '@/services/Api'
+  import Notify from '@/services/Snotify'
   export default {
     data () {
       return {
@@ -49,12 +91,58 @@
           { label: 'Estado (Ubicacion)', field: 'id_ubicacion', filtrable: true },
           { label: 'Utilizado en', field: 'id_categoria', filtrable: false },
           { label: '' }
-        ]
+        ],
+        headers: [
+          { text: 'Id de Categoria', align: 'left', value: 'id_categoria' },
+          { text: 'Nombre', align: 'left', value: 'categoria' }
+        ],
+        categorys: [],
+        dialogCategorys: false,
+        dialogState: false
       }
     },
     methods: {
       prepareComponent () {
-
+        this.getCities()
+      },
+      getCities () {
+        Api().get('/city')
+        .then(response => {
+          this.cities = response.data
+        })
+        .catch(response => {
+          Notify.danger('Error', 'Algo ha salido mal')
+        })
+      },
+      getLocation (id) {
+        Api().get('/city')
+        .then(response => {
+          this.cities = response.data
+          this.dialogState = true
+        })
+        .catch(response => {
+          Notify.danger('Error', 'Algo ha salido mal')
+        })
+      },
+      getCategorysArray (categorys) {
+        Api().post('category/getIn', { opt: categorys.split(';') })
+          .then(response => {
+            this.categorys = response.data
+            this.dialogCategorys = true
+          })
+          .catch(response => {
+            console.log(response.data)
+          })
+      },
+      removeCities (id) {
+        Api().delete('/city/' + id)
+          .then(response => {
+            Notify.success('Exitoso', 'La ciudad ha sido eliminada con exito')
+            this.getCities()
+          })
+          .catch(response => {
+            Notify.danger('Error', 'Algo ha salido mal')
+          })
       }
     },
     ready () {

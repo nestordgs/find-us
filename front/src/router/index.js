@@ -12,10 +12,12 @@ import UbicacionesEdit from '@/components/locations/edit'
 import UbicacionesAdd from '@/components/locations/create'
 // Cities Components
 import Ciudades from '@/components/cities/list'
+import CiudadesAdd from '@/components/cities/create'
 
 // Forms Components
 import FormCategory from '@/components/category/form'
 import FormLocation from '@/components/locations/form'
+import FormCities from '@/components/cities/form'
 
 // Common Components
 import CategoryName from '@/components/categoryNames'
@@ -24,6 +26,7 @@ Vue.use(Router)
 
 Vue.component('form-category', FormCategory)
 Vue.component('form-location', FormLocation)
+Vue.component('form-city', FormCities)
 Vue.component('name-category', CategoryName)
 
 export default new Router({
@@ -73,6 +76,11 @@ export default new Router({
       path: '/ciudades/',
       name: 'Ciudades',
       component: Ciudades
+    },
+    {
+      path: '/ciudades/add',
+      name: 'CiudadesAdd',
+      component: CiudadesAdd
     }
   ]
 })

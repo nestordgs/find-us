@@ -20,7 +20,12 @@ exports.get = (req, res) => {
  * @param res
  */
 exports.create = (req, res) => {
-  let newCity = new City(req.body)
+  let newCity = new City({
+    id_ciudad: req.body.id_ciudad,
+    ciudad: req.body.ciudad,
+    id_ubicacion: req.body.id_ubicacion,
+    id_categoria: req.body.id_categoria.join(';')
+  })
 
   newCity.save((err, city) => {
     if (err) return res.status(400).send(err)
