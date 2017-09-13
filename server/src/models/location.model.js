@@ -16,7 +16,7 @@ const LocationSchema = new Schema({
     type: String,
     required: 'Name of location es requerido'
   }
-})
+}, {timestamps: true})
 
 /**
  * Statics

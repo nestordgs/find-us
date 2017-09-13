@@ -1,6 +1,7 @@
 const express = require('express')
 const categoryRoutes = require('../router/category.route')
 const locationRoutes = require('../router/location.route')
+const cityRoutes = require('../router/cities.route')
 
 const router = express.Router()
 
@@ -24,5 +25,6 @@ router.route('/test')
 
 router.use('/category', categoryRoutes)
 router.use('/location', locationRoutes)
+router.use('/city', cityRoutes)
 
 module.exports = router

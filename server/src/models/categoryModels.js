@@ -14,7 +14,7 @@ const CategorySchema = new Schema({
     type: String,
     default: ''
   }
-})
+}, {timestamps: true})
 
 /**
  * Statics
