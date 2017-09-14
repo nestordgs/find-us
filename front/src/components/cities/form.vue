@@ -9,16 +9,17 @@
                     name="ciudadName"
                     v-model="data.ciudad"
                     required
+                    :rules="nameRules"
       ></v-text-field>
       <v-text-field label="Descripcion de Ciudad"
                     name="ciudadDescription"
                     v-model="data.descripcion"
       ></v-text-field>
       <v-layout row wrap>
-          <v-flex xs12 sm6>
+          <v-flex xs12 sm4>
             <v-subheader v-text="'Estado al que pertenece'"></v-subheader>
           </v-flex>
-          <v-flex xs12 sm6>
+          <v-flex xs12 sm8>
             <v-select
               v-bind:items="locations"
               v-model="data.id_ubicacion"
@@ -26,6 +27,8 @@
               single-line
               item-text="ubicacion"
               item-value="id_ubicacion"
+              prepend-icon="map"
+              required
             ></v-select>
           </v-flex>
         <v-flex xs12 sm6 md3 v-for="categoria in categorias" class="text-xs-left">
@@ -53,7 +56,13 @@
     data () {
       return {
         categorias: [],
-        locations: []
+        locations: [],
+        nameRules: [
+          v => {
+            return !!v || 'Nombre de ciudad requerido'
+          },
+          v => /[\s\S]{5,50}/.test(v) || 'Nombre de ciudad debe contener minimo 5 caracteres y un maximo 50 caracteres'
+        ]
       }
     },
     methods: {

@@ -18,17 +18,16 @@
                       :globalSearch="true"
                       styleClass="table table-bordered">
         <template slot="table-row" scope="props">
-          <td class="text-center">{{ props.row.id_ubicacion }}</td>
+          <td class="text-center">{{ props.row.id_ciudad }}</td>
           <td class="text-justify">{{ props.row.ciudad }}</td>
           <td class="text-justify">
             <v-btn outline class="indigo--text" @click="getLocation(props.row.id_ubicacion)">Ver Estado</v-btn>
-          </td>
           </td>
           <td class="text-justify">
             <v-btn outline class="indigo--text" @click="getCategorysArray(props.row.id_categoria)">Ver Categorias</v-btn>
           </td>
           <td>
-            <router-link :to="{ name: 'CiudadesEdit', params: { id: props.row.id_ubicacion }}"
+            <router-link :to="{ name: 'CiudadesEdit', params: { id: props.row.id_ciudad }}"
                          class="btn btn--raised btn--small warning theme--dark">
               Edit
             </router-link>
@@ -44,7 +43,7 @@
         <v-card>
           <v-card-title class="headline">Categoria donde se utiliza esta Ciudad</v-card-title>
           <v-data-table
-            :headers="headers"
+            :headers="headersCategory"
             :items="categorys"
             hide-actions
             class="elevation-1">
@@ -64,11 +63,16 @@
       <v-dialog v-model="dialogState" persistent width="30%">
         <v-card>
           <v-card-title class="headline">Estado donde se utiliza esta Ciudad</v-card-title>
-            <!-- Aqui 
-              debe
-            ir
-              El
-            Contenido -->
+          <v-data-table
+            :headers="headersState"
+            :items="location"
+            hide-actions
+            class="elevation-1">
+            <template slot="items" scope="props">
+              <td class="text-xs-center"><strong>{{ props.item.id_ubicacion}}</strong></td>
+              <td class="text-xs-justify">{{ props.item.ubicacion }}</td>
+            </template>
+          </v-data-table>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn class="green--text darken-1" flat="flat" @click.native="dialogState = false">Cerrar</v-btn>
@@ -92,11 +96,16 @@
           { label: 'Utilizado en', field: 'id_categoria', filtrable: false },
           { label: '' }
         ],
-        headers: [
+        headersCategory: [
           { text: 'Id de Categoria', align: 'left', value: 'id_categoria' },
           { text: 'Nombre', align: 'left', value: 'categoria' }
         ],
+        headersState: [
+          { text: 'Id de Estado', align: 'left', value: 'id_ubicacion' },
+          { text: 'Nombre', align: 'left', value: 'ubicacion' }
+        ],
         categorys: [],
+        location: [],
         dialogCategorys: false,
         dialogState: false
       }
@@ -115,9 +124,9 @@
         })
       },
       getLocation (id) {
-        Api().get('/city')
+        Api().get('location/' + id)
         .then(response => {
-          this.cities = response.data
+          this.location = response.data
           this.dialogState = true
         })
         .catch(response => {

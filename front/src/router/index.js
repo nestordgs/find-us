@@ -13,6 +13,7 @@ import UbicacionesAdd from '@/components/locations/create'
 // Cities Components
 import Ciudades from '@/components/cities/list'
 import CiudadesAdd from '@/components/cities/create'
+import CiudadesEdit from '@/components/cities/edit'
 
 // Forms Components
 import FormCategory from '@/components/category/form'
@@ -81,6 +82,11 @@ export default new Router({
       path: '/ciudades/add',
       name: 'CiudadesAdd',
       component: CiudadesAdd
+    },
+    {
+      path: '/ciudades/:id',
+      name: 'CiudadesEdit',
+      component: CiudadesEdit
     }
   ]
 })
