@@ -21,10 +21,12 @@
           <td class="text-center">{{ props.row.id_ciudad }}</td>
           <td class="text-justify">{{ props.row.ciudad }}</td>
           <td class="text-justify">
-            <v-btn outline class="indigo--text" @click="getLocation(props.row.id_ubicacion)">Ver Estado</v-btn>
+            <!-- <v-btn outline class="indigo--text" @click="getLocation(props.row.id_ubicacion)">Ver Estado</v-btn> -->
+            <dialog-info :data="location" :id="props.row.id_ubicacion" :properties="dialogPropertiesState"></dialog-info>
           </td>
           <td class="text-justify">
-            <v-btn outline class="indigo--text" @click="getCategorysArray(props.row.id_categoria)">Ver Categorias</v-btn>
+            <!-- <v-btn outline class="indigo--text" @click="getCategorysArray(props.row.id_categoria)">Ver Categorias</v-btn> -->
+            <dialog-info :data="categorys" :id="props.row.id_ubicacion" :properties="dialogPropertiesCategory"></dialog-info>
           </td>
           <td>
             <router-link :to="{ name: 'CiudadesEdit', params: { id: props.row.id_ciudad }}"
@@ -39,7 +41,7 @@
       </vue-good-table>
 
 
-      <v-dialog v-model="dialogCategorys">
+      <!-- <v-dialog v-model="dialogCategorys">
         <v-card>
           <v-card-title class="headline">Categoria donde se utiliza esta Ciudad</v-card-title>
           <v-data-table
@@ -57,10 +59,10 @@
             <v-btn class="green--text darken-1" flat="flat" @click.native="dialogCategorys = false">Cerrar</v-btn>
           </v-card-actions>
         </v-card>
-      </v-dialog>
+      </v-dialog> -->
 
 
-      <v-dialog v-model="dialogState" persistent width="30%">
+      <!-- <v-dialog v-model="dialogState" persistent width="30%">
         <v-card>
           <v-card-title class="headline">Estado donde se utiliza esta Ciudad</v-card-title>
           <v-data-table
@@ -78,7 +80,10 @@
             <v-btn class="green--text darken-1" flat="flat" @click.native="dialogState = false">Cerrar</v-btn>
           </v-card-actions>
         </v-card>
-      </v-dialog>
+      </v-dialog> -->
+
+      <!-- <dialog-info :properties="dialogPropertiesCategory"></dialog-info>
+      <dialog-info :properties="dialogPropertiesState"></dialog-info> -->
     </div>
 </template>
 
@@ -96,18 +101,30 @@
           { label: 'Utilizado en', field: 'id_categoria', filtrable: false },
           { label: '' }
         ],
-        headersCategory: [
-          { text: 'Id de Categoria', align: 'left', value: 'id_categoria' },
-          { text: 'Nombre', align: 'left', value: 'categoria' }
-        ],
-        headersState: [
-          { text: 'Id de Estado', align: 'left', value: 'id_ubicacion' },
-          { text: 'Nombre', align: 'left', value: 'ubicacion' }
-        ],
         categorys: [],
         location: [],
-        dialogCategorys: false,
-        dialogState: false
+        dialogPropertiesCategory: {
+          state: false,
+          dialog: false,
+          titleBtn: 'Ver Categorias',
+          route: 'category/getIn',
+          title: 'Categoria donde se utiliza esta Ciudad',
+          headers: [
+            { text: 'ID de Categoria', align: 'left', value: 'id_categoria' },
+            { text: 'Nombre', align: 'left', value: 'categoria' }
+          ]
+        },
+        dialogPropertiesState: {
+          state: true,
+          dialog: false,
+          titleBtn: 'Ver Estado',
+          route: 'location/',
+          title: 'Estado donde se utiliza esta Ciudad',
+          headers: [
+            { text: 'Id de Estado', align: 'left', value: 'id_ubicacion' },
+            { text: 'Nombre', align: 'left', value: 'ubicacion' }
+          ]
+        }
       }
     },
     methods: {
