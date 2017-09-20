@@ -21,14 +21,14 @@ import FormLocation from '@/components/locations/form'
 import FormCities from '@/components/cities/form'
 
 // Common Components
-import CategoryName from '@/components/categoryNames'
+import DialogInfo from '@/components/dialog.info'
 
 Vue.use(Router)
 
 Vue.component('form-category', FormCategory)
 Vue.component('form-location', FormLocation)
 Vue.component('form-city', FormCities)
-Vue.component('name-category', CategoryName)
+Vue.component('dialog-info', DialogInfo)
 
 export default new Router({
   mode: 'history',
