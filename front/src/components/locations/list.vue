@@ -1,6 +1,6 @@
 <!-- Created by Nestor on 9/9/2017. /-->
 <template>
-  <div class="container">
+  <div>
     <h3>Estados ({{ $route.name }})</h3>
     <p class="text-xs-right">
       <router-link :to="{ name: 'UbicacionesAdd'}"
@@ -21,8 +21,7 @@
       <template slot="table-row" scope="props">
         <td class="text-center">{{ props.row.id_ubicacion }}</td>
         <td class="text-justify">
-              <!--<v-btn outline class="indigo&#45;&#45;text" @click.native.stop="dialog = true;getCategorysArray(props.row.id_categoria)">Open Dialog</v-btn>-->
-          <v-btn outline class="indigo--text" @click="getCategorysArray(props.row.id_categoria)">Open Dialog</v-btn>
+          <dialog-info :data="categorys" :properties="dialogProperties" @execute="getCategorysArray(props.row.id_categoria)"></dialog-info>
         </td>
         <td class="text-justify">{{ props.row.ubicacion }}</td>
         <td>
@@ -36,25 +35,6 @@
         </td>
       </template>
     </vue-good-table>
-    <v-dialog v-model="dialog" persistent width="50%">
-      <v-card>
-        <v-card-title class="headline text-xs-left">Categoria donde se utiliza este Estado (Ubicación)</v-card-title>
-        <v-data-table
-          :headers="headers"
-          :items="categorys"
-          hide-actions
-          class="elevation-1">
-          <template slot="items" scope="props">
-            <td class="text-xs-center"><strong>{{ props.item.id_categoria }}</strong></td>
-            <td class="text-xs-justify">{{ props.item.categoria }}</td>
-          </template>
-        </v-data-table>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn class="green--text darken-1" flat="flat" @click.native="dialog = false">Cerrar</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 
@@ -64,20 +44,22 @@
   export default {
     data () {
       return {
-        locations: [],
         columns: [
           { label: 'ID', field: 'id_ubicacion', filtrable: true },
           { label: 'Utilizado en', field: 'id_categoria', filtrable: false },
           { label: 'Name', field: 'ubicacion', filtrable: true },
           { label: '' }
         ],
-        categorys: [],
-        dialog: false,
-        headers: [
-          { text: 'Id de Categoria', align: 'left', value: 'id_categoria' },
-          { text: 'Nombre', align: 'left', value: 'categoria' }
-        ],
-        open: false
+        dialogProperties: {
+          titleBtn: 'Ver Categoria',
+          title: 'Categoria donde se utiliza este Estado (Ubicación)',
+          headers: [
+            { text: 'Id de Categoria', align: 'left', value: 'id_categoria' },
+            { text: 'Nombre', align: 'left', value: 'categoria' }
+          ]
+        },
+        locations: [],
+        categorys: []
       }
     },
     methods: {
@@ -96,7 +78,6 @@
         Api().post('category/getIn', { opt: categorys.split(';') })
           .then(response => {
             this.categorys = response.data
-            this.dialog = true
           })
           .catch(response => {
             console.log(response.data)

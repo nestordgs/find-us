@@ -1,6 +1,6 @@
 <!-- Created by Nestor on 9/7/2017. /-->
 <template>
-  <div class="container">
+  <div>
     <div class="row">
       <div class="col">
         <h3 class="text-center">{{ $route.name }}</h3>

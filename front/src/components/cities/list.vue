@@ -91,7 +91,6 @@
         Api().get('location/' + id)
         .then(response => {
           this.location = response.data
-          this.dialogState = true
         })
         .catch(response => {
           Notify.danger('Error', 'Algo ha salido mal')
@@ -101,7 +100,6 @@
         Api().post('category/getIn', { opt: categorys.split(';') })
           .then(response => {
             this.categorys = response.data
-            this.dialogCategorys = true
           })
           .catch(response => {
             console.log(response.data)
