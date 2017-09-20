@@ -1,18 +1,25 @@
 <!-- Created by Nestor on 9/10/2017. /-->
 <template>
-    <div>
-        <v-btn outline class="indigo--text" @click.native.stop="dialog = true;getInfo(id)">{{ properties.titleBtn }}</v-btn>
-        <v-dialog v-model="dialog" width="30%">
+  <div>
+    <v-layout row justify-center>
+      <v-dialog v-model="dialog" persistent>
+        <v-btn outline class="indigo--text btn--small" slot="activator" @click="showModal">{{ properties.titleBtn }}</v-btn>
         <v-card>
           <v-card-title class="headline">{{ properties.title }}</v-card-title>
           <v-data-table
             :headers="properties.headers"
-            :items="values"
+            :items="data"
             hide-actions
             class="elevation-1">
             <template slot="items" scope="props">
-              <td class="text-xs-center"><strong>{{ props.item.id_categoria }}</strong></td>
-              <td class="text-xs-justify">{{ props.item.categoria }}</td>
+              <td class="text-xs-center">
+                <strong>
+                  {{ (props.item.id_ubicacion) ? props.item.id_ubicacion : props.item.id_categoria }}
+                </strong>
+              </td>
+              <td class="text-xs-justify">
+                {{ (props.item.ubicacion) ? props.item.ubicacion  : props.item.categoria }}
+              </td>
             </template>
           </v-data-table>
           <v-card-actions>
@@ -21,12 +28,11 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </div>
+    </v-layout>
+  </div>
 </template>
 
 <script>
-  import Api from '@/services/Api'
-  import Notify from '@/services/Snotify'
   export default {
     props: {
       properties: {
@@ -36,41 +42,17 @@
       data: {
         type: Array,
         required: true
-      },
-      id: {
-        required: true
       }
     },
     data () {
       return {
-        dialog: this.properties.dialog,
-        values: this.data
+        dialog: this.properties.dialog
       }
     },
     methods: {
-      prepareComponent () {
-        console.log(this.data)
-      },
-      getInfo (id) {
-        if (this.properties.state) {
-          Api().get(this.properties.route + this.id)
-            .then(response => {
-              this.data = response.data
-              this.dialogState = true
-            })
-            .catch(response => {
-              Notify.danger('Error', 'Algo ha salido mal')
-            })
-        } else {
-          Api().post(this.properties.route)
-            .then(response => {
-              this.data = response.data
-              this.dialogState = true
-            })
-            .catch(response => {
-              Notify.danger('Error', 'Algo ha salido mal')
-            })
-        }
+      prepareComponent () {},
+      showModal () {
+        this.$emit('execute')
       }
     },
     ready () {
