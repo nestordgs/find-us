@@ -4,6 +4,8 @@ const Schema = mongoose.Schema
 const CategorySchema = new Schema({
   id_categoria: {
     type: Number,
+    unique: true,
+    index: true,
     required: 'ID Categoria es Requerido'
   },
   categoria: {

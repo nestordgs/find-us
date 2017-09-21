@@ -8,7 +8,7 @@ const Office = mongoose.model('oficinas')
  */
 exports.get = (req, res) => {
   Office.findById(req.params.id, (err, office) => {
-    if (err) return res.status(400).send(err)
+    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
     if (office.length === 0) return res.status(400).send({ message: 'La oficina no existe' })
     res.send(office)
   })
@@ -23,7 +23,7 @@ exports.create = (req, res) => {
   let newOffice = new Office(req.body)
 
   newOffice.save((err, office) => {
-    if (err) return res.status(400).send(err)
+    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
     res.send({ message: 'Oficina creada exitosamente' })
   })
 }
@@ -35,7 +35,7 @@ exports.create = (req, res) => {
  */
 exports.update = (req, res) => {
   Office.findByIdAndUpdate(req.params.id, req.body, (err, office) => {
-    if (err) return res.status(400).send(err)
+    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
     res.send({ message: 'Oficina actualizada exitosamente' })
   })
 }
@@ -47,7 +47,7 @@ exports.update = (req, res) => {
  */
 exports.delete = (req, res) => {
   Office.findByIdAndRemove(req.params.id, (err, office) => {
-    if (err) return res.status(400).send(err)
+    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
     res.send({ message: 'Oficina eliminada exitosamente' })
   })
 }
