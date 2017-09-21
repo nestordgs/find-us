@@ -9,7 +9,7 @@ const Atms = mongoose.model('cajeros')
 exports.get = (req, res) => {
 	Atms.findById(req.params.id, (err, atm) => {
 		if (err) return res.status(400).send(err)
-		if (atm.length === 0) return res.status(400).send({ message: 'El Cajero no existe' })
+		if (atm.length === 0) return res.status(404).send({ message: 'El Cajero no existe' })
 		res.send(atm)
 	})
 }

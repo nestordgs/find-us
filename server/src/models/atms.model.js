@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const AtmsSchema = new Schema({
-	id_ubicaciom: {
+	id_ubicacion: {
 		type: Number,
 		required: 'ID Ubicacion is required'
 	},
@@ -26,7 +26,7 @@ const AtmsSchema = new Schema({
 		type: Number,
 		required: 'LatitudAtm is required'
 	}
-})
+}, {timestamps: true})
 
 AtmsSchema.statics = {
 	/**
