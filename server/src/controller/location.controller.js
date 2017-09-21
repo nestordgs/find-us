@@ -8,7 +8,7 @@ const Location = mongoose.model('ubicaciones')
  */
 exports.get = (req, res) => {
   Location.find({id_ubicacion: req.params.id}, (err, location) => {
-    if (err) return res.status(400).send(err)
+    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
     if (location.length === 0) return res.status(404).send({ message: 'La Ubicación no existe' })
     res.send(location)
   })
@@ -27,7 +27,7 @@ exports.create = (req, res) => {
   })
 
   newLocation.save((err, location) => {
-    if (err) return res.status(400).send(err)
+    if (err) return res.status(400).json(mongooseErrorHandler.set(err))
     res.send({message: 'Nueva Ubicacion creada Exitosamente'})
   })
 }
@@ -38,9 +38,10 @@ exports.create = (req, res) => {
  * @param res"
  */
 exports.update = (req, res) => {
-  Location.findByIDJoinAndUpdate(req.params.id, req.body).then(location => {
-    res.send({message: 'Ubicacion Actualizada Exitosamente'})
-  })
+  Location.findByIDJoinAndUpdate(req.params.id, req.body)
+    .then(location => {
+      res.send({message: 'Ubicacion Actualizada Exitosamente'})
+    })
     .catch(e => res.status(400).send(e))
 }
 
@@ -51,7 +52,7 @@ exports.update = (req, res) => {
  */
 exports.delete = (req, res) => {
   Location.findByIdAndRemove(req.params.id, (err, location) => {
-    if (err) return res.status(400).send(err)
+    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
     res.send({message: 'Ubicacion Eliminada Exitosamente'})
   })
 }

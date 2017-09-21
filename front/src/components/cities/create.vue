@@ -29,8 +29,10 @@
           Notify.success('Exitoso', response.data.message)
           this.resetForm()
           this.getLastVal()
-        }).catch(response => {
-          Notify.danger('Error', 'Algo ha salido mal')
+        }).catch(error => {
+          Object.entries(error.response.data.errors).forEach(
+            ([key, value]) => Notify.danger('Error', value)
+          )
         })
       },
       getLastVal () {

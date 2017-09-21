@@ -2,8 +2,8 @@ const express = require('express')
 const categoryRoutes = require('../router/category.route')
 const locationRoutes = require('../router/location.route')
 const cityRoutes = require('../router/cities.route')
-// const officeRoutes = require('../router/offices.route')
 const officeRoutes = require('./offices.route')
+const atmRoutes = require('./atms.route')
 
 const router = express.Router()
 
@@ -29,5 +29,6 @@ router.use('/category', categoryRoutes)
 router.use('/location', locationRoutes)
 router.use('/city', cityRoutes)
 router.use('/office', officeRoutes)
+router.use('/atm', atmRoutes)
 
 module.exports = router

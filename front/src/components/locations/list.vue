@@ -69,9 +69,10 @@
       getLocations () {
         Api().get('location').then(response => {
           this.locations = response.data
-        }).catch(response => {
-          Notify.danger('Error', 'Algo ha salido mal')
-          console.log(response.data)
+        }).catch(error => {
+          Object.entries(error.response.data.errors).forEach(
+            ([key, value]) => Notify.danger('Error', value)
+          )
         })
       },
       getCategorysArray (categorys) {
@@ -79,16 +80,20 @@
           .then(response => {
             this.categorys = response.data
           })
-          .catch(response => {
-            console.log(response.data)
+          .catch(error => {
+            Object.entries(error.response.data.errors).forEach(
+              ([key, value]) => Notify.danger('Error', value)
+            )
           })
       },
       removeLocation (id) {
         Api().delete('location/' + id).then(response => {
           Notify.success('Exitoso', response.data.message)
           this.getLocations()
-        }).catch(response => {
-          console.log(response.data)
+        }).catch(error => {
+          Object.entries(error.response.data.errors).forEach(
+            ([key, value]) => Notify.danger('Error', value)
+          )
         })
       }
     },

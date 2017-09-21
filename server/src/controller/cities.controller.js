@@ -8,7 +8,7 @@ const City = mongoose.model('ciudades')
  */
 exports.get = (req, res) => {
   City.find({id_ciudad: req.params.id}, (err, city) => {
-    if (err) return res.status(400).send(err)
+    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
     if (city.length === 0) return res.status(404).send({ message: 'La ciudad no existe' })
     res.send(city)
   })
@@ -26,9 +26,9 @@ exports.create = (req, res) => {
     id_ubicacion: req.body.id_ubicacion,
     id_categoria: req.body.id_categoria.join(';')
   })
-
+  
   newCity.save((err, city) => {
-    if (err) return res.status(400).send(err)
+    if (err) return res.status(400).json(mongooseErrorHandler.set(err))
     res.send({ message: 'Ciudad creada exitosamente' })
   })
 }
@@ -40,7 +40,7 @@ exports.create = (req, res) => {
  */
 exports.update = (req, res) => {
   City.findByIdAndUpdate(req.params.id, req.body, (err, city) => {
-    if (err) return res.status(400).send(err)
+    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
     res.send({ message: 'Ciudad actualizada exitosamente' })
   })
 }
@@ -52,7 +52,7 @@ exports.update = (req, res) => {
  */
 exports.delete = (req, res) => {
   City.findByIdAndRemove(req.params.id, (err, city) => {
-    if (err) return res.status(400).send(err)
+    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
     res.send({ message: 'Ciudad eliminada exitosamente' })
   })
 }
