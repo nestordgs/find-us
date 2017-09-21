@@ -70,8 +70,10 @@
         Api().delete('category/' + id).then(response => {
           Notify.success('Exitoso', response.data.message)
           this.consultar()
-        }).catch(response => {
-          console.log(response.data)
+        }).catch(error => {
+          Object.entries(error.response.data.errors).forEach(
+            ([key, value]) => Notify.danger('Error', value)
+          )
         })
       }
     },

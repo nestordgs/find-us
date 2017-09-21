@@ -92,8 +92,10 @@
         .then(response => {
           this.location = response.data
         })
-        .catch(response => {
-          Notify.danger('Error', 'Algo ha salido mal')
+        .catch(error => {
+          Object.entries(error.response.data.errors).forEach(
+            ([key, value]) => Notify.danger('Error', value)
+          )
         })
       },
       getCategorysArray (categorys) {
@@ -101,8 +103,10 @@
           .then(response => {
             this.categorys = response.data
           })
-          .catch(response => {
-            console.log(response.data)
+          .catch(error => {
+            Object.entries(error.response.data.errors).forEach(
+              ([key, value]) => Notify.danger('Error', value)
+            )
           })
       },
       removeCities (id) {
@@ -111,8 +115,10 @@
             Notify.success('Exitoso', 'La ciudad ha sido eliminada con exito')
             this.getCities()
           })
-          .catch(response => {
-            Notify.danger('Error', 'Algo ha salido mal')
+          .catch(error => {
+            Object.entries(error.response.data.errors).forEach(
+              ([key, value]) => Notify.danger('Error', value)
+            )
           })
       }
     },

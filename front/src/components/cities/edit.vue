@@ -31,9 +31,10 @@
       submit (formData) {
         Api().put('city/' + this.city._id, formData).then(response => {
           Notify.success('Exitoso', response.data.message)
-        }).catch(response => {
-          Notify.danger('Error', 'Algo ha salido mal')
-          console.log(response.data)
+        }).catch(error => {
+          Object.entries(error.response.data.errors).forEach(
+            ([key, value]) => Notify.danger('Error', value)
+          )
         })
       }
     },

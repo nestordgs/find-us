@@ -8,7 +8,7 @@ const Category = mongoose.model('categoria')
  */
 exports.get = (req, res) => {
   Category.find({id_categoria: req.params.id}, (err, category) => {
-    if (err) return res.status(400).send(err)
+    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
     if (category.length === 0) return res.status(404).send({ message: 'La Categoria no existe' })
     res.send(category)
   })
@@ -27,7 +27,7 @@ exports.create = (req, res) => {
   })
 
   newCategory.save((err, category) => {
-    if (err) return res.status(400).send(err.errors)
+    if (err) return res.status(400).json(mongooseErrorHandler.set(err))
     res.send({message: 'Categoria Creada Exitosamente'})
   })
 }
@@ -39,7 +39,7 @@ exports.create = (req, res) => {
  */
 exports.update = (req, res) => {
   Category.findByIdAndUpdate(req.params.id, req.body, (err, category) => {
-    if (err) return res.status(400).send(err)
+    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
     res.send({message: 'Categoria Actualizada Exitosamente'})
   })
 }
@@ -51,7 +51,7 @@ exports.update = (req, res) => {
  */
 exports.delete = (req, res) => {
   Category.findByIdAndRemove(req.params.id, (err, category) => {
-    if (err) return res.status(400).send(err)
+    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
     res.send({message: 'Categoria Eliminada Exitosamente'})
   })
 }
