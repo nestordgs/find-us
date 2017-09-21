@@ -32,7 +32,15 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-  @import "~vue-snotify/styles/material";
+  @import "~vue-snotify/styles/simple";
+
+.snotifyToast__title {
+  font-size: 1.3em !important;
+}
+
+.snotifyToast__body {
+  font-size: .8em !important;
+}
 
   // Checkbox variables
 $checkbox-size: 20px;
@@ -130,7 +138,7 @@ $checked-colour: #2FAEF8;
       20px -12px 0 11px;
     animation: checkbox-on $checkbox-animation-check forwards ease-out;
   }
-  
+
   input[type=checkbox]:not(:checked) + .checkbox-material:before {
     animation: rippleOff $checkbox-animation-ripple forwards ease-out;
   }
@@ -174,7 +182,7 @@ $checked-colour: #2FAEF8;
     }
   }
   input[type=checkbox]:not(:checked) + .checkbox-material {
-    
+
   }
 }
 

@@ -23,7 +23,7 @@ exports.create= (req, res) => {
 	let newAtm = new Atms(req.body)
 
 	newAtm.save((err, atm) => {
-		if (err) return res.status(400).send(mongooseErrorHandler.set(err))
+		if (err) return res.status(400).json(mongooseErrorHandler.set(err))
 		res.send({ message: 'Cajero creado Exitosamente' })
 	})
 }

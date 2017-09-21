@@ -24,24 +24,29 @@
       submit (formData) {
         Api().put('location/' + this.location._id, formData).then(response => {
           Notify.success('Exitoso', response.data.message)
-        }).catch(response => {
-          Notify.danger('Error', 'Algo ha salido mal')
-          console.log(response.data)
+        }).catch(error => {
+          Object.entries(error.response.data.errors).forEach(
+            ([key, value]) => Notify.danger('Error', value)
+          )
         })
       },
       getLocation (id) {
         Api().get('location/' + id).then(response => {
           this.location = response.data[0]
           this.location.id_categoria = response.data[0].id_categoria.split(';')
-        }).catch(response => {
-          Notify.danger('Error', 'Algo ha salido mal')
+        }).catch(error => {
+          Object.entries(error.response.data.errors).forEach(
+            ([key, value]) => Notify.danger('Error', value)
+          )
         })
       },
       getCategorys () {
         Api().get('category').then(response => {
           this.categorys = response.data
-        }).catch(response => {
-          console.log(response)
+        }).catch(error => {
+          Object.entries(error.response.data.errors).forEach(
+            ([key, value]) => Notify.danger('Error', value)
+          )
         })
       }
     },

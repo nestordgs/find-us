@@ -27,7 +27,7 @@ exports.create = (req, res) => {
   })
 
   newCategory.save((err, category) => {
-    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
+    if (err) return res.status(400).json(mongooseErrorHandler.set(err))
     res.send({message: 'Categoria Creada Exitosamente'})
   })
 }

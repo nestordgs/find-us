@@ -23,7 +23,7 @@ exports.create = (req, res) => {
   let newOffice = new Office(req.body)
 
   newOffice.save((err, office) => {
-    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
+    if (err) return res.status(400).json(mongooseErrorHandler.set(err))
     res.send({ message: 'Oficina creada exitosamente' })
   })
 }

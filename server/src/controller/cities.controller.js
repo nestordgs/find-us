@@ -26,9 +26,9 @@ exports.create = (req, res) => {
     id_ubicacion: req.body.id_ubicacion,
     id_categoria: req.body.id_categoria.join(';')
   })
-
+  
   newCity.save((err, city) => {
-    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
+    if (err) return res.status(400).json(mongooseErrorHandler.set(err))
     res.send({ message: 'Ciudad creada exitosamente' })
   })
 }

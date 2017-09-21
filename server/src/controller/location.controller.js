@@ -27,7 +27,7 @@ exports.create = (req, res) => {
   })
 
   newLocation.save((err, location) => {
-    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
+    if (err) return res.status(400).json(mongooseErrorHandler.set(err))
     res.send({message: 'Nueva Ubicacion creada Exitosamente'})
   })
 }
