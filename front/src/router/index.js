@@ -25,6 +25,7 @@ import FormOffices from '@/components/offices/form'
 
 // Common Components
 import DialogInfo from '@/components/dialog.info'
+import WorkingHours from '@/components/workingHours'
 
 Vue.use(Router)
 
@@ -33,6 +34,7 @@ Vue.component('form-location', FormLocation)
 Vue.component('form-city', FormCities)
 Vue.component('form-office', FormOffices)
 Vue.component('dialog-info', DialogInfo)
+Vue.component('working-hours', WorkingHours)
 
 export default new Router({
   mode: 'history',

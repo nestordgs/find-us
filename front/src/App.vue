@@ -34,6 +34,16 @@ export default {
 }
   @import "~vue-snotify/styles/simple";
 
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.img-responsive {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
 .snotifyToast__title {
   font-size: 1.3em !important;
 }
