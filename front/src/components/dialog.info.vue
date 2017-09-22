@@ -6,22 +6,11 @@
         <v-btn outline class="indigo--text btn--small" slot="activator" @click="showModal">{{ properties.titleBtn }}</v-btn>
         <v-card>
           <v-card-title class="headline">{{ properties.title }}</v-card-title>
-          <v-data-table
-            :headers="properties.headers"
-            :items="data"
-            hide-actions
-            class="elevation-1">
-            <template slot="items" scope="props">
-              <td class="text-xs-center">
-                <strong>
-                  {{ (props.item.id_ubicacion) ? props.item.id_ubicacion : props.item.id_categoria }}
-                </strong>
-              </td>
-              <td class="text-xs-justify">
-                {{ (props.item.ubicacion) ? props.item.ubicacion  : props.item.categoria }}
-              </td>
-            </template>
-          </v-data-table>
+          <vue-good-table
+                          :columns="properties.headers"
+                          :rows="data"
+                          styleClass="table table-bordered table-striped condensed">
+          </vue-good-table>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn class="green--text darken-1" flat="flat" @click.native="dialog = false">Cerrar</v-btn>

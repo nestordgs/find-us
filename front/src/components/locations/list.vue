@@ -10,8 +10,7 @@
         </div>
       </router-link>
     </p>
-    <vue-good-table title="Global Filter"
-                    :columns="columns"
+    <vue-good-table :columns="columns"
                     :rows="locations"
                     :defaultSortBy="{field: 'id_ubicacion'}"
                     :paginate="true"
@@ -54,8 +53,8 @@
           titleBtn: 'Ver Categoria',
           title: 'Categoria donde se utiliza este Estado (Ubicación)',
           headers: [
-            { text: 'Id de Categoria', align: 'left', value: 'id_categoria' },
-            { text: 'Nombre', align: 'left', value: 'categoria' }
+            { label: 'Id de Categoria', field: 'id_categoria' },
+            { label: 'Nombre', field: 'categoria' }
           ]
         },
         locations: [],
