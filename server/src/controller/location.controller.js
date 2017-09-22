@@ -9,7 +9,7 @@ const Location = mongoose.model('ubicaciones')
 exports.get = (req, res) => {
   Location.find({id_ubicacion: req.params.id}, (err, location) => {
     if (err) return res.status(400).send(mongooseErrorHandler.set(err))
-    if (location.length === 0) return res.status(404).send({ message: 'La Ubicación no existe' })
+    if (location.length === 0) return res.status(404).send({errors: {message: "La Ubicacion no existe"}})
     res.send(location)
   })
 }

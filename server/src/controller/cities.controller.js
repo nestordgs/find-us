@@ -9,7 +9,7 @@ const City = mongoose.model('ciudades')
 exports.get = (req, res) => {
   City.find({id_ciudad: req.params.id}, (err, city) => {
     if (err) return res.status(400).send(mongooseErrorHandler.set(err))
-    if (city.length === 0) return res.status(404).send({ message: 'La ciudad no existe' })
+    if (city.length === 0) return res.status(404).send({errors: {message: "La Ciudad no existe"}})
     res.send(city)
   })
 }
