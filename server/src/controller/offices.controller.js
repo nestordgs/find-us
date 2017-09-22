@@ -9,7 +9,7 @@ const Office = mongoose.model('oficinas')
 exports.get = (req, res) => {
   Office.findById(req.params.id, (err, office) => {
     if (err) return res.status(400).send(mongooseErrorHandler.set(err))
-    if (office.length === 0) return res.status(400).send({ message: 'La oficina no existe' })
+    if (office.length === 0) return res.status(400).send({errors: {message: "La Oficina no existe"}})
     res.send(office)
   })
 }

@@ -9,7 +9,7 @@ const Category = mongoose.model('categoria')
 exports.get = (req, res) => {
   Category.find({id_categoria: req.params.id}, (err, category) => {
     if (err) return res.status(400).send(mongooseErrorHandler.set(err))
-    if (category.length === 0) return res.status(404).send({ message: 'La Categoria no existe' })
+    if (category.length === 0) return res.status(404).send({errors: {message: "La Categoria no existe"}})
     res.send(category)
   })
 }
