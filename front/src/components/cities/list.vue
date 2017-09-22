@@ -9,8 +9,7 @@
           </div>
         </router-link>
       </p>
-      <vue-good-table title="Global Filter"
-                      :columns="columns"
+      <vue-good-table :columns="columns"
                       :rows="cities"
                       :defaultSortBy="{field: 'id_ciudad'}"
                       :paginate="true"
@@ -57,16 +56,16 @@
           titleBtn: 'Ver Categorias',
           title: 'Categoria donde se utiliza esta Ciudad',
           headers: [
-            { text: 'ID de Categoria', align: 'left', value: 'id_categoria' },
-            { text: 'Nombre', align: 'left', value: 'categoria' }
+            { label: 'ID de Categoria', field: 'id_categoria' },
+            { label: 'Nombre', field: 'categoria' }
           ]
         },
         dialogPropertiesState: {
           titleBtn: 'Ver Estado',
           title: 'Estado donde se utiliza esta Ciudad',
           headers: [
-            { text: 'Id de Estado', align: 'left', value: 'id_ubicacion' },
-            { text: 'Nombre', align: 'left', value: 'ubicacion' }
+            { label: 'Id de Estado', field: 'id_ubicacion' },
+            { label: 'Nombre', field: 'ubicacion' }
           ]
         },
         cities: [],
