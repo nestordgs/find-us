@@ -6,6 +6,8 @@
 </template>
 
 <script>
+  import Api from '@/services/Api'
+  import Notify from '@/services/SNotify'
   export default {
     data () {
       return {
@@ -14,12 +16,16 @@
           id_ciudad: '',
           nombre: '',
           direccion: '',
-          longitud: '',
-          latitud: '',
-          telefono: '',
+          lngLat: {
+            longitud: '',
+            latitud: ''
+          },
+          telefono: [
+            { telefono: '', tipo: '' }
+          ],
           lun_vie: [],
-          navideno: {desde: '', hasta: ''},
           horario_trabajo: {desde: '', hasta: ''},
+          navideno: {desde: '', hasta: ''},
           sabados: {desde: '', hasta: ''},
           feriados: {desde: '', hasta: ''},
           lun_vie_externos: '',
@@ -42,6 +48,15 @@
       prepareComponent () {},
       submit (formData) {
         console.log(formData)
+        Api().post('office/', formData).then(response => {
+          Notify.success('Exitoso', response.data.message)
+          this.resetForm()
+          this.getLastVal()
+        }).catch(error => {
+          Object.entries(error.response.data.errors).forEach(
+            ([key, value]) => Notify.danger('Error', value)
+          )
+        })
       }
     },
     ready () {

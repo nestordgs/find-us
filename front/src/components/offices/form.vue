@@ -8,9 +8,11 @@
         <v-divider></v-divider>
         <v-stepper-step step="3">Otros Datos de Oficina</v-stepper-step>
       </v-stepper-header>
+
       <v-stepper-content step="1">
-        <v-text-field label="Nombre de la Oficina" name="nombre" v-model="data.nombre" required></v-text-field>
-        <v-text-field label="Direccion de la Oficina" name="direccion" v-model="data.direccion" required></v-text-field>
+        <v-text-field label="Nombre de la Oficina" name="nombre" v-model="data.nombre" required :rules="nameRules"></v-text-field>
+        <v-text-field label="Direccion de la Oficina" name="direccion" v-model="data.direccion" required :rules="addressRules"></v-text-field>
+        <v-divider></v-divider>
         <v-layout row wrap>
           <v-flex xs12 sm6>
             <v-subheader><strong>Estado donde se encuentra la oficina</strong></v-subheader>
@@ -21,22 +23,14 @@
             <v-select :items="cities" v-model="data.id_ciudad" label="Seleccione una Ciudad" single-line item-text="ciudad" item-value="id_ciudad" prepend-icon="fa-map-marker" required></v-select>
           </v-flex>
         </v-layout>
+        <v-divider></v-divider>
+        <br>
         <p><strong>Ubicacion Geografica de la oficina</strong></p>
-        <v-layout row wrap>
-          <v-flex d-flex>
-            <v-layout row wrap>
-              <v-flex d-flex xs12>
-                <v-text-field type="number" label="Longitud" name="longitud" v-model="data.longitud" required></v-text-field>
-              </v-flex>
-              <v-flex d-flex xs12>
-                <v-text-field type="number" label="Latitud" name="latitud" v-model="data.latitud" required></v-text-field>
-              </v-flex>
-            </v-layout>
-          </v-flex>
-          <v-flex xs11 sm5 md6 offset-sm1>
-            <v-card img="https://erinlyyc.com/wp-content/uploads/2017/05/google-maps.jpg" flat height="200px" class="pa-3"></v-card>
-          </v-flex>
-        </v-layout>
+        <location-map :data="data.lngLat" :modal="false"></location-map>
+        <v-divider></v-divider>
+        <br>
+        <p><strong>Telefonos</strong></p>
+        <phone :data="data.telefono"></phone>
         <v-btn primary @click.native="stepper = 2">Continue</v-btn>
       </v-stepper-content>
       <v-stepper-content step="2">
@@ -77,6 +71,9 @@
           </v-flex>
           <v-flex xs6 sm4 md3>
             <v-switch label="Via Rapida" color="success" v-model="data.via_rapida" :input-value="data.via_rapida" hide-details></v-switch>
+          </v-flex>
+          <v-flex xs6 sm4 md3>
+            <v-switch label="Rampas" color="success" v-model="data.rampas" :input-value="data.rampas" hide-details></v-switch>
           </v-flex>
         </v-layout>
         <v-layout row justify-space-between>
@@ -121,7 +118,15 @@
         properties1: {title: 'Horario de Trabajo', modal1: false, modal2: false},
         properties2: {title: 'Horario Navideño', modal1: false, modal2: false},
         properties3: {title: 'Horario Sabatino', modal1: false, modal2: false},
-        properties4: {title: 'Horario Feriados', modal1: false, modal2: false}
+        properties4: {title: 'Horario Feriados', modal1: false, modal2: false},
+        nameRules: [
+          v => !!v || 'NOMBRE DE OFICINA REQUERIDO',
+          v => /^[a-z0-9íóúáéÍÓÚÁÉ .'-]{5,50}$/i.test(v) || 'EL NOMBRE DE LA OFICINA NO ES VALIDO'
+        ],
+        addressRules: [
+          v => !!v || 'DIRECCION DE OFICINA REQUERIDO',
+          v => /^[a-z0-9íóúáéÍÓÚÁÉ ,.'-]{5,250}$/i.test(v) || 'LA DIRECCION DE LA OFICINA NO ES VALIDA'
+        ]
       }
     },
     methods: {
