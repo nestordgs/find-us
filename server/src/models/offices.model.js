@@ -27,23 +27,33 @@ const OfficeSchema = new Schema({
     required: 'latitud oficina es requerido'
   },
   telefono: {
-    type: String,
+    type: [Schema.Types.Mixed],
+  },
+	lun_vie: {
+		type: Array,
+		validate: {
+			validator: arr => {
+				return arr.every((v) => typeof v === 'string') && arr.length > 0
+			},
+			message: '{VALUE} No es un dia de la semana correcto'
+		},
+		required: [true, 'debe seleccionar al menos un dia de trabajo']
+	},
+	horario_trabajo: {
+    type: Object,
+    required: [true, 'Debe seleccionar el horario de trabajo']
   },
   navideno: {
-    type: String,
-    default: ''
-  },
-  lun_vie: {
-    type: String,
-    required: 'Horario de lunes a viernes es requerido'
+    type: Schema.Types.Mixed,
+    default: { desde: '', hasta:'' }
   },
   sabados: {
-    type: String,
-    default: ''
+	  type: Schema.Types.Mixed,
+	  default: { desde: '', hasta:'' }
   },
   feriados: {
-    type: String,
-    default: ''
+	  type: Schema.Types.Mixed,
+	  default: { desde: '', hasta:'' }
   },
   lun_vie_externas: {
     type: String,

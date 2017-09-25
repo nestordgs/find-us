@@ -22,6 +22,9 @@ exports.get = (req, res) => {
 exports.create = (req, res) => {
   let newOffice = new Office(req.body)
 
+  newOffice.longitud = req.body.lngLat.longitud
+  newOffice.latitud = req.body.lngLat.latitud
+
   newOffice.save((err, office) => {
     if (err) return res.status(400).json(mongooseErrorHandler.set(err))
     res.send({ message: 'Oficina creada exitosamente' })
