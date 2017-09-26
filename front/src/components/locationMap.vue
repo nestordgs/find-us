@@ -24,6 +24,23 @@
             </v-toolbar-title>
           </v-toolbar>
           Aqui va Mapa de Google
+
+          <gmap-map
+            :center="center"
+            :zoom="zoom"
+            map-type-id="roadmap"
+            style="width: 100%; height: 400px; margin: 0 auto;"
+          >
+            <gmap-marker
+              :key="index"
+              v-for="(m, index) in markers"
+              :position="m.position"
+              :clickable="true"
+              :draggable="false"
+              @click="center=m.position;zoom=18"
+            ></gmap-marker>
+          </gmap-map>
+
         </v-card>
       </v-dialog>
     </v-flex>
@@ -40,6 +57,21 @@
     },
     data () {
       return {
+        zoom: 6,
+        center: {lat: 10.0, lng: 10.0},
+        markers: [
+          {position: {lng: -64.476803, lat: 9.428207}},
+          {position: {lng: -64.479569, lat: 9.445928}},
+          {position: {lng: -64.68589, lat: 10.137449}},
+          {position: {lng: -64.664604, lat: 10.134707}},
+          {position: {lng: -64.659786, lat: 10.185904}},
+          {position: {lng: -64.240113, lat: 8.893655}},
+          {position: {lng: -64.690422, lat: 8.893697}},
+          {position: {lng: -64.690422, lat: 10.181549}},
+          {position: {lng: -64.680733, lat: 10.179311}},
+          {position: {lng: -64.634821, lat: 10.20114}},
+          {position: {lng: -64.675023, lat: 10.224068}}
+        ],
         test2: 0,
         dialog: this.modal,
         lngRules: [
