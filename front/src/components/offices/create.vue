@@ -57,6 +57,39 @@
             ([key, value]) => Notify.danger('Error', value)
           )
         })
+      },
+      resetForm () {
+        this.office = {
+          id_ubicacion: '',
+          id_ciudad: '',
+          nombre: '',
+          direccion: '',
+          lngLat: {
+            longitud: '',
+            latitud: ''
+          },
+          telefono: [
+            {telefono: '', tipo: ''}
+          ],
+          lun_vie: [],
+          horario_trabajo: {desde: '', hasta: ''},
+          navideno: {desde: '', hasta: ''},
+          sabados: {desde: '', hasta: ''},
+          feriados: {desde: '', hasta: ''},
+          lun_vie_externos: '',
+          sabados_feriados_externas: '',
+          feriado_bancario: false,
+          carnaval: false,
+          semana_santa: false,
+          impuesto: false,
+          abramatic: false,
+          externa: false,
+          via_rapida: false,
+          rampas: false,
+          atm_ofic: 0,
+          atm_ubic: 0,
+          multifuncionales_ofic: 0
+        }
       }
     },
     ready () {

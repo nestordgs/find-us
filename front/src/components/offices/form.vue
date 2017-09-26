@@ -2,11 +2,11 @@
   <v-form>
     <v-stepper v-model="stepper">
       <v-stepper-header>
-        <v-stepper-step step="1" :complete="stepper > 1">Datos de Oficina</v-stepper-step>
+        <v-stepper-step step="1" :complete="stepper > 1" editable>Datos de Oficina</v-stepper-step>
         <v-divider></v-divider>
-        <v-stepper-step step="2" :complete="stepper > 2">Horarios de Oficina</v-stepper-step>
+        <v-stepper-step step="2" :complete="stepper > 2" editable>Horarios de Oficina</v-stepper-step>
         <v-divider></v-divider>
-        <v-stepper-step step="3">Otros Datos de Oficina</v-stepper-step>
+        <v-stepper-step step="3" editable>Otros Datos de Oficina</v-stepper-step>
       </v-stepper-header>
 
       <v-stepper-content step="1">
@@ -134,6 +134,7 @@
         this.getOptions()
       },
       submit () {
+        this.stepper = 1
         this.$emit('submit', this.data)
       },
       getOptions () {

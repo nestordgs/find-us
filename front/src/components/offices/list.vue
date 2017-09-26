@@ -30,11 +30,11 @@
           <td class="text-center">{{ props.row.longitud }}</td>
           <td class="text-center">{{ props.row.latitud }}</td>
           <td>
-            <router-link :to="{ name: 'CiudadesEdit', params: { id: props.row.id_ciudad }}"
+            <router-link :to="{ name: 'OficinasEdit', params: { id: props.row._id}}"
                          class="btn btn--raised btn--small warning theme--dark">
               Edit
             </router-link>
-            <v-btn small error dark @click="removeCities(props.row._id)">
+            <v-btn small error dark @click="removeOffice(props.row._id)">
               Delete
             </v-btn>
           </td>
@@ -110,6 +110,18 @@
         Api().get('city/' + id)
           .then(response => {
             this.city = response.data
+          })
+          .catch(error => {
+            Object.entries(error.response.data.errors).forEach(
+              ([key, value]) => Notify.danger('Error', value)
+            )
+          })
+      },
+      removeOffice (id) {
+        Api().delete('office/' + id)
+          .then(response => {
+            Notify.success('Exitoso', 'La oficina ha sido eliminada con exito')
+            this.getOffices()
           })
           .catch(error => {
             Object.entries(error.response.data.errors).forEach(

@@ -18,13 +18,9 @@ const OfficeSchema = new Schema({
     type: String,
     required: 'Direccion oficina es requerido'
   },
-  longitud: {
-    type: Number,
-    required: 'longitud oficina es requerido'
-  },
-  latitud: {
-    type: Number,
-    required: 'latitud oficina es requerido'
+	lngLat: {
+		type: Schema.Types.Mixed,
+		required: [true, 'Debe seleccionar la latitud & Longitud']
   },
   telefono: {
     type: [Schema.Types.Mixed],

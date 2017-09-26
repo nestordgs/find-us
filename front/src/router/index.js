@@ -17,6 +17,7 @@ import CiudadesEdit from '@/components/cities/edit'
 // Offices Components
 import Oficinas from '@/components/offices/list'
 import OficinasAdd from '@/components/offices/create'
+import OficinasEdit from '@/components/offices/edit'
 // Forms Components
 import FormCategory from '@/components/category/form'
 import FormLocation from '@/components/locations/form'
@@ -107,6 +108,11 @@ export default new Router({
       path: '/oficinas/add',
       name: 'OficinasAdd',
       component: OficinasAdd
+    },
+    {
+      path: '/oficinas/:id',
+      name: 'OficinasEdit',
+      component: OficinasEdit
     }
   ]
 })
