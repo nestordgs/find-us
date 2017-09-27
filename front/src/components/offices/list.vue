@@ -11,24 +11,24 @@
       </p>
       <vue-good-table :columns="columns"
                       :rows="offices"
-                      :defaultSortBy="{field: 'id_ubicacion'}"
+                      :defaultSortBy="{field: 'nombre'}"
                       :paginate="true"
                       :lineNumbers="true"
                       :globalSearch="true"
                       styleClass="table table-bordered">
         <template slot="table-row" scope="props">
+          <td class="text-justify">{{ props.row.nombre }}</td>
+          <td class="text-justify">
+            {{ props.row.direccion }}
+          </td>
+          <td class="text-center">{{ props.row.lngLat.longitud }}</td>
+          <td class="text-center">{{ props.row.lngLat.latitud }}</td>
           <td class="text-center">
             <dialog-info :data="location" :properties="dialogPropertiesState" @execute="getLocation(props.row.id_ubicacion)"></dialog-info>
           </td>
           <td class="text-center">
             <dialog-info :data="city" :properties="dialogPropertiesCity" @execute="getCity(props.row.id_ciudad)"></dialog-info>
           </td>
-          <td class="text-justify">{{ props.row.nombre }}</td>
-          <td class="text-justify">
-            {{ props.row.direccion }}
-          </td>
-          <td class="text-center">{{ props.row.longitud }}</td>
-          <td class="text-center">{{ props.row.latitud }}</td>
           <td>
             <router-link :to="{ name: 'OficinasEdit', params: { id: props.row._id}}"
                          class="btn btn--raised btn--small warning theme--dark">
@@ -50,12 +50,12 @@
     data () {
       return {
         columns: [
-          { label: 'Ubicacion', field: 'id_ubicacion', filtrable: true },
-          { label: 'Ciudad', field: 'id_ciudad', filtrable: true },
           { label: 'Nombre', field: 'nombre', filtrable: true },
           { label: 'Direccion', field: 'direccion', filtrable: true },
           { label: 'Longitud', field: 'longitud', filtrable: true },
           { label: 'Latitud', field: 'latitud', filtrable: true },
+          { label: 'Ubicacion', field: 'id_ubicacion', filtrable: true },
+          { label: 'Ciudad', field: 'id_ciudad', filtrable: true },
           { label: '' }
         ],
         dialogPropertiesState: {

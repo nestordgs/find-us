@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card-text style="position: relative">
-      <v-btn absolute dark outline fab top right class="indigo btn--small" @click="addPhone">
+      <v-btn v-tooltip:left="{ html: 'Agregar nuevo Telefono' }" absolute dark outline fab top right class="indigo btn--small" @click="addPhone">
         <v-icon  class="blue-grey--text text--darken-2">add</v-icon>
       </v-btn>
     </v-card-text>
