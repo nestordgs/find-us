@@ -8,8 +8,8 @@
         <v-text-field label="Latitud" name="latitud" id="latitud" v-model="data.latitud" required :rules="latRules" v-on:keyup="latitud"></v-text-field>
       </v-flex>
       <v-card-text style="position: relative">
-        <v-btn absolute dark fab top right class="indigo btn--small" @click="showMap(data.longitud,data.latitud)" >
-          <v-icon>fa-eye</v-icon>
+        <v-btn absolute dark outline fab top right class="indigo btn--small" @click="showMap(data.longitud,data.latitud)" >
+          <v-icon class="blue-grey--text text--darken-2">fa-map-marker</v-icon>
         </v-btn>
       </v-card-text>
     </v-layout>
