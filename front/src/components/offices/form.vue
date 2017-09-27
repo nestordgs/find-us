@@ -39,7 +39,7 @@
           <v-flex xs12 sm2>
             <v-subheader><strong>Dias de Trabajo</strong></v-subheader>
           </v-flex>
-          <v-flex xs4 sm2 v-for="day in days">
+          <v-flex xs4 sm2 v-for="day in days" :key="day.id">
             <v-switch :label="day.label" color="success" v-model="data.lun_vie" :value="day.value"></v-switch>
           </v-flex>
         </v-layout>

@@ -31,7 +31,7 @@
               required
             ></v-select>
           </v-flex>
-        <v-flex xs12 sm6 md3 v-for="categoria in categorias" class="text-xs-left">
+        <v-flex xs12 sm6 md3 v-for="categoria in categorias" class="text-xs-left" :key="categoria.id">
           <div class="checkbox">
             <label>
               <input type="checkbox" :value="categoria.id_categoria" v-model="data.id_categoria" name="isCategory[]">

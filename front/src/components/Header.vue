@@ -2,7 +2,7 @@
   <v-toolbar fixed class="indigo darken-4" dark>
     <v-toolbar-title class="mr-4">{ Ubicanos }</v-toolbar-title>
 
-    <v-toolbar-items v-for="item in items">
+    <v-toolbar-items v-for="item in items" :key="item.id">
       <v-btn flat dark :to="{name: item.route}">{{ item.title }}</v-btn>
     </v-toolbar-items>
   </v-toolbar>
