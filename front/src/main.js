@@ -17,12 +17,9 @@ Vue.use(Snotify)
 
 Vue.use(VueGoogleMaps, {
   load: {
+    installComponents: false,
     key: 'AIzaSyDx9kGiK6ksyeZQEWFBn_-HbSR-60eGZlU',
-    libraries: 'places',
-    installComponents: false
-    // This is required if you use the Autocomplete plugin
-    // OR: libraries: 'places,drawing'
-    // OR: libraries: 'places,drawing,visualization'
+    libraries: 'places'
   }
 })
 
