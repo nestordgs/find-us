@@ -3,13 +3,14 @@
   <div>
     <v-layout row justify-center>
       <v-dialog v-model="dialog" persistent>
-        <v-btn outline class="indigo--text btn--small" slot="activator" @click="showModal">{{ properties.titleBtn }}</v-btn>
+        <v-btn outline class="indigo--text btn--small" slot="activator" @click="showModal">{{ properties.titleBtn }}
+        </v-btn>
         <v-card>
           <v-card-title class="headline">{{ properties.title }}</v-card-title>
           <vue-good-table
-                          :columns="properties.headers"
-                          :rows="data"
-                          styleClass="table table-bordered table-striped condensed">
+            :columns="properties.headers"
+            :rows="data"
+            styleClass="table table-bordered table-striped condensed">
           </vue-good-table>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -39,7 +40,8 @@
       }
     },
     methods: {
-      prepareComponent () {},
+      prepareComponent () {
+      },
       showModal () {
         this.$emit('execute')
       }

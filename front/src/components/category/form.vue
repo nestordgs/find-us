@@ -16,48 +16,48 @@
                   name="categoria"
                   v-model="data.descripcion"
     ></v-text-field>
-    <v-btn primary dark @click="submit">Submit</v-btn>
+    <v-btn primary dark @click="submit">Guardar</v-btn>
   </v-form>
 </template>
 
 <script>
-export default {
-  props: {
-    data: {
-      type: Object,
-      required: true
-    }
-  },
-  data () {
-    return {
-      categoriaRules: [
-        v => {
-          return !!v || 'Nombre de categoria requerido'
-        },
-        v => /[\s\S]{5,50}/.test(v) || 'Nombre de categoria debe contener minimo 5 caracteres y un maximo 50 caracteres'
-      ]
-    }
-  },
-  methods: {
-    prepareComponent () {
-
+  export default {
+    props: {
+      data: {
+        type: Object,
+        required: true
+      }
     },
-    submit () {
-      let formData = new FormData()
+    data () {
+      return {
+        categoriaRules: [
+          v => {
+            return !!v || 'Nombre de categoria requerido'
+          },
+          v => /[\s\S]{5,50}/.test(v) || 'Nombre de categoria debe contener minimo 5 caracteres y un maximo 50 caracteres'
+        ]
+      }
+    },
+    methods: {
+      prepareComponent () {
 
-      formData.set('_id', this.data._id)
-      formData.set('id', this.data.id_categoria)
-      formData.set('name', this.data.categoria)
-      formData.set('descripcion', this.data.descripcion)
+      },
+      submit () {
+        let formData = new FormData()
 
-      this.$emit('submit', this.data)
+        formData.set('_id', this.data._id)
+        formData.set('id', this.data.id_categoria)
+        formData.set('name', this.data.categoria)
+        formData.set('descripcion', this.data.descripcion)
+
+        this.$emit('submit', this.data)
+      }
+    },
+    ready () {
+      this.prepareComponent()
+    },
+    mounted () {
+      this.prepareComponent()
     }
-  },
-  ready () {
-    this.prepareComponent()
-  },
-  mounted () {
-    this.prepareComponent()
   }
-}
 </script>

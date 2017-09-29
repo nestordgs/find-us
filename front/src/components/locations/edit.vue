@@ -1,14 +1,15 @@
 <!-- Created by Nestor on 9/10/2017. /-->
 <template>
-    <div class="container">
-      <h3 class="text-xs-justify text-sm-center">Estado (Ubicacion) {{ $route.params.id }}</h3>
-      <form-location :data="location" @submit="submit"></form-location>
-    </div>
+  <div class="container">
+    <h3 class="text-xs-justify text-sm-center">Estado (Ubicacion) {{ $route.params.id }}</h3>
+    <form-location :data="location" @submit="submit"></form-location>
+  </div>
 </template>
 
 <script>
   import Api from '@/services/Api'
   import Notify from '@/services/SNotify'
+
   export default {
     data () {
       return {

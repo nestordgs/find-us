@@ -71,7 +71,8 @@
       }
     },
     methods: {
-      prepareComponent () {}
+      prepareComponent () {
+      }
     },
     ready () {
       this.prepareComponent()

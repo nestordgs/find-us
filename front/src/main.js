@@ -8,12 +8,14 @@ import {Snotify} from 'vue-snotify'
 import Vuetify from 'vuetify'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import 'vuetify/dist/vuetify.min.css'
+import VueLetterAvatar from 'vue-letter-avatar'
 
 Vue.config.productionTip = false
 
 Vue.use(Vuetify)
 Vue.use(VueGoodTable)
 Vue.use(Snotify)
+Vue.use(VueLetterAvatar)
 
 Vue.use(VueGoogleMaps, {
   load: {
