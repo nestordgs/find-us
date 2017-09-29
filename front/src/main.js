@@ -6,6 +6,7 @@ import App from './App'
 import router from './router'
 import {Snotify} from 'vue-snotify'
 import Vuetify from 'vuetify'
+import * as VueGoogleMaps from 'vue2-google-maps'
 import 'vuetify/dist/vuetify.min.css'
 
 Vue.config.productionTip = false
@@ -13,6 +14,14 @@ Vue.config.productionTip = false
 Vue.use(Vuetify)
 Vue.use(VueGoodTable)
 Vue.use(Snotify)
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    installComponents: false,
+    key: 'AIzaSyDx9kGiK6ksyeZQEWFBn_-HbSR-60eGZlU',
+    libraries: 'places'
+  }
+})
 
 /* eslint-disable no-new */
 new Vue({

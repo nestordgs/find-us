@@ -14,21 +14,14 @@ import UbicacionesAdd from '@/components/locations/create'
 import Ciudades from '@/components/cities/list'
 import CiudadesAdd from '@/components/cities/create'
 import CiudadesEdit from '@/components/cities/edit'
+// Offices Components
+import Oficinas from '@/components/offices/list'
+import OficinasAdd from '@/components/offices/create'
+import OficinasEdit from '@/components/offices/edit'
 
-// Forms Components
-import FormCategory from '@/components/category/form'
-import FormLocation from '@/components/locations/form'
-import FormCities from '@/components/cities/form'
-
-// Common Components
-import DialogInfo from '@/components/dialog.info'
+require('../components/commonComponents')
 
 Vue.use(Router)
-
-Vue.component('form-category', FormCategory)
-Vue.component('form-location', FormLocation)
-Vue.component('form-city', FormCities)
-Vue.component('dialog-info', DialogInfo)
 
 export default new Router({
   mode: 'history',
@@ -87,6 +80,21 @@ export default new Router({
       path: '/ciudades/:id',
       name: 'CiudadesEdit',
       component: CiudadesEdit
+    },
+    {
+      path: '/oficinas/',
+      name: 'Oficinas',
+      component: Oficinas
+    },
+    {
+      path: '/oficinas/add',
+      name: 'OficinasAdd',
+      component: OficinasAdd
+    },
+    {
+      path: '/oficinas/:id',
+      name: 'OficinasEdit',
+      component: OficinasEdit
     }
   ]
 })
