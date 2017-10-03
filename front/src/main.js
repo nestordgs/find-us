@@ -7,7 +7,9 @@ import router from './router'
 import {Snotify} from 'vue-snotify'
 import Vuetify from 'vuetify'
 import * as VueGoogleMaps from 'vue2-google-maps'
+import { sync } from 'vuex-router-sync'
 import 'vuetify/dist/vuetify.min.css'
+import store from '@/store/store'
 
 Vue.config.productionTip = false
 
@@ -23,10 +25,13 @@ Vue.use(VueGoogleMaps, {
   }
 })
 
+sync(store, router)
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

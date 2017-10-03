@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
 import Register from '@/components/Register'
+import Login from '@/components/Login'
 // Category Components
 import Categorias from '@/components/category/list'
 import CategoriasEdit from '@/components/category/edit'
@@ -53,6 +54,11 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     },
     {
       path: '/categorias',

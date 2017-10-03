@@ -10,7 +10,11 @@ const AuthCtrlPolicy = require('../policies/auth.controller.policy')
 
 const router = express.Router()
 
-router.post('/register', AuthCtrlPolicy.register, AuthCtrl.register)
+router.post('/register',
+  AuthCtrlPolicy.register,
+  AuthCtrl.register)
+router.post('/login',
+  AuthCtrl.login)
 
 router.route('/test')
   .post((req, res) => {
