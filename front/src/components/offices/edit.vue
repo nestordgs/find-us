@@ -71,14 +71,8 @@
         })
       }
     },
-    ready () {
-      this.prepareComponent()
-    },
-    mounted () {
+    async mounted () {
       this.prepareComponent()
     }
-  },
-  async mounted () {
-    this.prepareComponent()
   }
 </script>
