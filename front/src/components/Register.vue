@@ -1,29 +1,42 @@
 <template>
   <v-layout column>
-    <v-flex xs6 offset-xs3>
+    <v-flex xs12 sm8 offset-sm2>
       <h3>Registro de Usuarios</h3>
       <form
         name="tab-tracker-form"
         autocomplete="off">
-        <v-text-field
-          label="Nombre"
-          v-model="nombre"
-          required
-        ></v-text-field>
-        <br>
-        <v-text-field
-          label="Correo Electronico"
-          v-model="email"
-          required
-        ></v-text-field>
-        <br>
-        <v-text-field
-          label="Contraseña"
-          type="password"
-          v-model="password"
-          autocomplete="new-password"
-          required
-        ></v-text-field>
+        <v-layout row wrap>
+          <v-flex xs12>
+            <v-text-field
+              label="Nombre"
+              v-model="nombre"
+              required
+              :rules="required"
+            ></v-text-field>
+          </v-flex>
+        </v-layout>
+        <v-layout row wrap>
+          <v-flex xs12>
+            <v-text-field
+              label="Correo Electronico"
+              v-model="email"
+              required
+              :rules="required"
+            ></v-text-field>
+          </v-flex>
+        </v-layout>
+        <v-layout row wrap>
+          <v-flex xs12>
+            <v-text-field
+              label="Contraseña"
+              type="password"
+              v-model="password"
+              autocomplete="new-password"
+              required
+              :rules="required"
+            ></v-text-field>
+          </v-flex>
+        </v-layout>
       </form>
       <br>
       <v-btn
@@ -44,7 +57,10 @@
       return {
         nombre: '',
         email: '',
-        password: ''
+        password: '',
+        required: [
+          v => !!v || 'ESTE CAMPO ES REQUERIDO'
+        ]
       }
     },
     methods: {
