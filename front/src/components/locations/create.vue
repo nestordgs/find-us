@@ -9,6 +9,7 @@
 <script>
   import Api from '@/services/Api'
   import Notify from '@/services/SNotify'
+
   export default {
     data () {
       return {

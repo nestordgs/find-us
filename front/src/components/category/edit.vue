@@ -1,13 +1,13 @@
 <!-- Created by Nestor on 9/9/2017. /-->
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h3>Categoria {{ $route.params.id }}</h3>
-                <form-category :data="category" @submit="submit"></form-category>
-            </div>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3>Categoria {{ $route.params.id }}</h3>
+        <form-category :data="category" @submit="submit"></form-category>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>

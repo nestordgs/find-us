@@ -19,28 +19,10 @@ import CiudadesEdit from '@/components/cities/edit'
 import Oficinas from '@/components/offices/list'
 import OficinasAdd from '@/components/offices/create'
 import OficinasEdit from '@/components/offices/edit'
-// Forms Components
-import FormCategory from '@/components/category/form'
-import FormLocation from '@/components/locations/form'
-import FormCities from '@/components/cities/form'
-import FormOffices from '@/components/offices/form'
 
-// Common Components
-import DialogInfo from '@/components/dialog.info'
-import WorkingHours from '@/components/workingHours'
-import LocationMap from '@/components/locationMap'
-import Phone from '@/components/phone'
+require('../components/commonComponents')
 
 Vue.use(Router)
-
-Vue.component('form-category', FormCategory)
-Vue.component('form-location', FormLocation)
-Vue.component('form-city', FormCities)
-Vue.component('form-office', FormOffices)
-Vue.component('dialog-info', DialogInfo)
-Vue.component('working-hours', WorkingHours)
-Vue.component('location-map', LocationMap)
-Vue.component('phone', Phone)
 
 export default new Router({
   mode: 'history',

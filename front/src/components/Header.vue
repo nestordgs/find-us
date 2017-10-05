@@ -24,14 +24,15 @@
   export default {
     data () {
       return {
-        drawer: true,
+        drawer: false,
         items: [
-          { title: 'Categorias', icon: 'dashboard', route: 'Categorias' },
-          { title: 'Ubicaciones', icon: 'question_answer', route: 'Ubicaciones' },
-          { title: 'Ciudades', icon: 'question_answer', route: 'Ciudades' },
-          { title: 'Oficinas', icon: 'question_answer', route: 'Oficinas' }
+          {title: 'Categorias', icon: 'dashboard', route: 'Categorias'},
+          {title: 'Ubicaciones', icon: 'fa-location-arrow', route: 'Ubicaciones'},
+          {title: 'Ciudades', icon: 'fa-map-marker', route: 'Ciudades'},
+          {title: 'Oficinas', icon: 'fa-globe', route: 'Oficinas'}
         ],
-        right: null
+        right: null,
+        mini: true
       }
     },
     methods: {
