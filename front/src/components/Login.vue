@@ -1,16 +1,9 @@
 <template>
   <v-layout column>
     <v-flex xs6 offset-xs3>
-      <h3>Registro de Usuarios</h3>
+      <h3>Inicio de Sesion</h3>
       <form
-        name="tab-tracker-form"
-        autocomplete="off">
-        <v-text-field
-          label="Nombre"
-          v-model="nombre"
-          required
-        ></v-text-field>
-        <br>
+        name="tab-tracker-form">
         <v-text-field
           label="Correo Electronico"
           v-model="email"
@@ -29,8 +22,8 @@
       <v-btn
         dark
         class="cyan"
-        @click="register">
-        Registrarse
+        @click="login">
+        Iniciar Sesion
       </v-btn>
     </v-flex>
   </v-layout>
@@ -38,7 +31,6 @@
 
 <script>
   import AuthenticationService from '@/services/AuthenticationService'
-  import Notify from '@/services/SNotify'
   export default {
     data () {
       return {
@@ -48,19 +40,20 @@
       }
     },
     methods: {
-      async register () {
+      prepareComponent () {},
+      async login () {
         try {
-          await AuthenticationService.register({
-            nombre: this.nombre,
+          const response = await AuthenticationService.login({
             email: this.email,
             password: this.password
           })
-          this.resetForm()
-          Notify.success('Felicidades', 'Registro Realizado exitosamente')
+          this.$store.dispatch('setToken', response.data.token)
+          this.$store.dispatch('setUser', response.data.user)
+          this.$router.push({
+            name: 'Hello'
+          })
         } catch (error) {
-          Object.entries(error.response.data.errors).forEach(
-            ([key, value]) => Notify.danger('Error', value)
-          )
+          console.log(error.response.data)
         }
       },
       resetForm () {
@@ -68,6 +61,12 @@
         this.email = ''
         this.password = ''
       }
+    },
+    ready () {
+      this.prepareComponent()
+    },
+    mounted () {
+      this.prepareComponent()
     }
   }
 </script>

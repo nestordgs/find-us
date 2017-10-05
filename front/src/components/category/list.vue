@@ -12,8 +12,7 @@
             </div>
           </router-link>
         </p>
-        <vue-good-table title="Global Filter"
-                        :columns="columns"
+        <vue-good-table :columns="columns"
                         :rows="categorys"
                         :defaultSortBy="{field: 'id_categoria'}"
                         :paginate="true"
@@ -23,14 +22,16 @@
           <template slot="table-row" scope="props">
             <td class="text-lg-center text-sm-center text-xs-center text-md-center">{{ props.row.id_categoria }}</td>
             <td class="text-lg-justify text-sm-justify text-xs-justify text-md-justify">{{ props.row.categoria }}</td>
-            <td class="text-lg-justify text-sm-justify text-xs-justify text-md-justify">{{ props.row.descripcion | description }}</td>
+            <td class="text-lg-justify text-sm-justify text-xs-justify text-md-justify">
+              {{ props.row.descripcion | description }}
+            </td>
             <td>
               <router-link :to="{ name: 'CategoriasEdit', params: { id: props.row.id_categoria }}"
                            class="btn btn--raised btn--small warning theme--dark">
-                Edit
+                Editar
               </router-link>
               <v-btn small error dark @click="removeCat(props.row._id)">
-                Delete
+                Eliminar
               </v-btn>
             </td>
           </template>
@@ -43,15 +44,16 @@
 <script>
   import Api from '@/services/Api'
   import Notify from '@/services/SNotify'
+
   export default {
     data () {
       return {
         categorys: [],
         columns: [
-          { label: 'ID', field: 'id_categoria', filtrable: true },
-          { label: 'Name', field: 'categoria', filtrable: true },
-          { label: 'Descripcion', field: 'descripcion' },
-          { label: '' }
+          {label: 'ID', field: 'id_categoria', filtrable: true},
+          {label: 'Name', field: 'categoria', filtrable: true},
+          {label: 'Descripcion', field: 'descripcion'},
+          {label: ''}
         ]
       }
     },
@@ -82,10 +84,7 @@
         return str.length === 0 ? 'Sin Descripcion' : str
       }
     },
-    ready () {
-      this.prepareComponent()
-    },
-    mounted () {
+    async mounted () {
       this.prepareComponent()
     }
   }

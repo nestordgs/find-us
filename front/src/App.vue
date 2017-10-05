@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-app>
+    <v-app toolbar>
       <page-header />
 
       <main>

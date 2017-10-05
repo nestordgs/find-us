@@ -1,13 +1,14 @@
 <template>
-    <div class="container">
-      <h3>Editar Ciudad {{ $route.params.id }}</h3>
-      <form-city :data="city" @submit="submit"></form-city>
-    </div>
+  <div class="container">
+    <h3>Editar Ciudad {{ $route.params.id }}</h3>
+    <form-city :data="city" @submit="submit"></form-city>
+  </div>
 </template>
 
 <script>
   import Api from '@/services/Api'
   import Notify from '@/services/SNotify'
+
   export default {
     data () {
       return {
@@ -38,10 +39,7 @@
         })
       }
     },
-    ready () {
-      this.prepareComponent()
-    },
-    mounted () {
+    async mounted () {
       this.prepareComponent()
     }
   }

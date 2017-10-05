@@ -1,13 +1,14 @@
 <template>
-    <div>
-      <h3>Crear Nueva Oficina</h3>
-      <form-office :data="office" @submit="submit"></form-office>
-    </div>
+  <div>
+    <h3>Crear Nueva Oficina</h3>
+    <form-office :data="office" @submit="submit"></form-office>
+  </div>
 </template>
 
 <script>
   import Api from '@/services/Api'
   import Notify from '@/services/SNotify'
+
   export default {
     data () {
       return {
@@ -21,7 +22,7 @@
             latitud: ''
           },
           telefono: [
-            { telefono: '', tipo: '' }
+            {telefono: '', tipo: ''}
           ],
           lun_vie: [],
           horario_trabajo: {desde: '', hasta: ''},
@@ -45,7 +46,6 @@
       }
     },
     methods: {
-      prepareComponent () {},
       submit (formData) {
         console.log(formData)
         Api().post('office/', formData).then(response => {
@@ -91,12 +91,6 @@
           multifuncionales_ofic: 0
         }
       }
-    },
-    ready () {
-      this.prepareComponent()
-    },
-    mounted () {
-      this.prepareComponent()
     }
   }
 </script>

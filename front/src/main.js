@@ -7,13 +7,18 @@ import router from './router'
 import {Snotify} from 'vue-snotify'
 import Vuetify from 'vuetify'
 import * as VueGoogleMaps from 'vue2-google-maps'
+import { sync } from 'vuex-router-sync'
 import 'vuetify/dist/vuetify.min.css'
+import store from '@/store/store'
+import middleware from './middleware'
+import VueLetterAvatar from 'vue-letter-avatar'
 
 Vue.config.productionTip = false
 
 Vue.use(Vuetify)
 Vue.use(VueGoodTable)
 Vue.use(Snotify)
+Vue.use(VueLetterAvatar)
 
 Vue.use(VueGoogleMaps, {
   load: {
@@ -23,10 +28,15 @@ Vue.use(VueGoogleMaps, {
   }
 })
 
+sync(store, router)
+
+middleware(router)
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

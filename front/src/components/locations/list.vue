@@ -20,16 +20,17 @@
       <template slot="table-row" scope="props">
         <td class="text-center">{{ props.row.id_ubicacion }}</td>
         <td class="text-justify">
-          <dialog-info :data="categorys" :properties="dialogProperties" @execute="getCategorysArray(props.row.id_categoria)"></dialog-info>
+          <dialog-info :data="categorys" :properties="dialogProperties"
+                       @execute="getCategorysArray(props.row.id_categoria)"></dialog-info>
         </td>
         <td class="text-justify">{{ props.row.ubicacion }}</td>
         <td>
           <router-link :to="{ name: 'UbicacionesEdit', params: { id: props.row.id_ubicacion }}"
                        class="btn btn--raised btn--small warning theme--dark">
-            Edit
+            Editar
           </router-link>
           <v-btn small error dark @click="removeLocation(props.row._id)">
-            Delete
+            Eliminar
           </v-btn>
         </td>
       </template>
@@ -40,21 +41,22 @@
 <script>
   import Api from '@/services/Api'
   import Notify from '@/services/SNotify'
+
   export default {
     data () {
       return {
         columns: [
-          { label: 'ID', field: 'id_ubicacion', filtrable: true },
-          { label: 'Utilizado en', field: 'id_categoria', filtrable: false },
-          { label: 'Name', field: 'ubicacion', filtrable: true },
-          { label: '' }
+          {label: 'ID', field: 'id_ubicacion', filtrable: true},
+          {label: 'Utilizado en', field: 'id_categoria', filtrable: false},
+          {label: 'Name', field: 'ubicacion', filtrable: true},
+          {label: ''}
         ],
         dialogProperties: {
           titleBtn: 'Ver Categoria',
           title: 'Categoria donde se utiliza este Estado (Ubicación)',
           headers: [
-            { label: 'Id de Categoria', field: 'id_categoria' },
-            { label: 'Nombre', field: 'categoria' }
+            {label: 'Id de Categoria', field: 'id_categoria'},
+            {label: 'Nombre', field: 'categoria'}
           ]
         },
         locations: [],
@@ -75,7 +77,7 @@
         })
       },
       getCategorysArray (categorys) {
-        Api().post('category/getIn', { opt: categorys.split(';') })
+        Api().post('category/getIn', {opt: categorys.split(';')})
           .then(response => {
             this.categorys = response.data
           })
@@ -96,10 +98,7 @@
         })
       }
     },
-    ready () {
-      this.prepareComponent()
-    },
-    mounted () {
+    async mounted () {
       this.prepareComponent()
     }
   }
