@@ -46,8 +46,6 @@
       }
     },
     methods: {
-      prepareComponent () {
-      },
       submit (formData) {
         console.log(formData)
         Api().post('office/', formData).then(response => {
@@ -93,12 +91,6 @@
           multifuncionales_ofic: 0
         }
       }
-    },
-    ready () {
-      this.prepareComponent()
-    },
-    mounted () {
-      this.prepareComponent()
     }
   }
 </script>

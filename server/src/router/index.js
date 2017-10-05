@@ -5,13 +5,16 @@ const cityRoutes = require('../router/cities.route')
 const officeRoutes = require('./offices.route')
 const atmRoutes = require('./atms.route')
 
+const AuthCtrl = require('../controller/auth.controller')
+const AuthCtrlPolicy = require('../policies/auth.controller.policy')
+
 const router = express.Router()
 
-router.post('/register', (req, res) => {
-  res.send(({
-    message: `Hello ${req.body.email}! Your user was registered! Have fun!`
-  }))
-})
+router.post('/register',
+  AuthCtrlPolicy.register,
+  AuthCtrl.register)
+router.post('/login',
+  AuthCtrl.login)
 
 router.route('/test')
   .post((req, res) => {

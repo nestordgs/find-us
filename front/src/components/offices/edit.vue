@@ -77,5 +77,8 @@
     mounted () {
       this.prepareComponent()
     }
+  },
+  async mounted () {
+    this.prepareComponent()
   }
 </script>

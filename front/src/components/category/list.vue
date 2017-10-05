@@ -84,10 +84,7 @@
         return str.length === 0 ? 'Sin Descripcion' : str
       }
     },
-    ready () {
-      this.prepareComponent()
-    },
-    mounted () {
+    async mounted () {
       this.prepareComponent()
     }
   }
