@@ -49,7 +49,9 @@
           })
           this.$store.dispatch('setToken', response.data.token)
           this.$store.dispatch('setUser', response.data.user)
-          console.log('exitoso')
+          this.$router.push({
+            name: 'Hello'
+          })
         } catch (error) {
           console.log(error.response.data)
         }

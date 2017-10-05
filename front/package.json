@@ -24,6 +24,7 @@
     "vue2-google-maps": "^0.8.3",
     "vuetify": "^0.15.3",
     "vuex": "^2.4.1",
+    "vuex-persistedstate": "^2.0.0",
     "vuex-router-sync": "^4.3.2"
   },
   "devDependencies": {

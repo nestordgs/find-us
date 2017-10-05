@@ -85,10 +85,7 @@
         })
       }
     },
-    ready () {
-      this.prepareComponent()
-    },
-    mounted () {
+    async mounted () {
       this.prepareComponent()
     }
   }

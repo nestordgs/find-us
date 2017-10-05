@@ -53,10 +53,7 @@ export default {
       this.$emit('submit', this.data)
     }
   },
-  ready () {
-    this.prepareComponent()
-  },
-  mounted () {
+  async mounted () {
     this.prepareComponent()
   }
 }
