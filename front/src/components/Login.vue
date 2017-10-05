@@ -31,6 +31,7 @@
 
 <script>
   import AuthenticationService from '@/services/AuthenticationService'
+  import Notify from '@/services/SNotify'
   export default {
     data () {
       return {
@@ -53,7 +54,9 @@
             name: 'Hello'
           })
         } catch (error) {
-          console.log(error.response.data)
+          Object.entries(error.response.data.errors).forEach(
+            ([key, value]) => Notify.danger('Error', value)
+          )
         }
       },
       resetForm () {

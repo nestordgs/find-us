@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import Phone from '@/components/phone'
+import Phone from '@/components/Phone'
 import LocationMap from '@/components/locationMap'
 import DialogInfo from '@/components/dialog.info'
 import WorkingHours from '@/components/workingHours'

@@ -57,6 +57,7 @@
           })
           this.resetForm()
           Notify.success('Felicidades', 'Registro Realizado exitosamente')
+          this.$router.push({name: 'login'})
         } catch (error) {
           Object.entries(error.response.data.errors).forEach(
             ([key, value]) => Notify.danger('Error', value)
