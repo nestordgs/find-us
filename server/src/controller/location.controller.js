@@ -1,5 +1,6 @@
-const mongoose = require('mongoose')
-const Location = mongoose.model('ubicaciones')
+import Location from '../models/location.model'
+
+const Controller = {}
 
 function isNumeric (value) {
   let type = typeof value
@@ -12,12 +13,18 @@ function isNumeric (value) {
  * @param req
  * @param res
  */
-exports.get = (req, res) => {
-  Location.find({id_ubicacion: req.params.id}, (err, location) => {
-    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
-    if (location.length === 0) return res.status(404).send({errors: {message: 'La Ubicacion no existe'}})
+Controller.get = async (req, res) => {
+  try {
+    const location = await Location.find({id_ubicacion: req.params.id})
+    if (location.length ===0) {
+      return res.status(404)
+        .send({errors: {message: 'La ubicacion no existe'}})
+    }
     res.send(location)
-  })
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
@@ -25,17 +32,22 @@ exports.get = (req, res) => {
  * @param req
  * @param res
  */
-exports.create = (req, res) => {
+Controller.create = async (req, res) => {
   let newLocation = new Location({
     id_categoria: req.body.id_categoria.join(';'),
     id_ubicacion: req.body.id_ubicacion,
     ubicacion: req.body.ubicacion
   })
-
-  newLocation.save((err) => {
-    if (err) return res.status(400).json(mongooseErrorHandler.set(err))
-    res.send({message: 'Nueva Ubicacion creada Exitosamente'})
-  })
+  try {
+    const location = await newLocation.save()
+    res.send({
+      message: 'Ubicacion creada Exitosamente',
+      location: location
+    })
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
@@ -43,12 +55,17 @@ exports.create = (req, res) => {
  * @param req
  * @param res"
  */
-exports.update = (req, res) => {
-  Location.findByIDJoinAndUpdate(req.params.id, req.body)
-    .then(() => {
-      res.send({message: 'Ubicacion Actualizada Exitosamente'})
+Controller.update = async (req, res) => {
+  try {
+    const location = await Location.findByIdAndUpdate(req.params.id,req.body)
+    res.send({
+      message: 'Ubicacion actualizada Exitosamente',
+      location: location
     })
-    .catch(e => res.status(400).send(e))
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
@@ -56,37 +73,50 @@ exports.update = (req, res) => {
  * @param req
  * @param res
  */
-exports.delete = (req, res) => {
-  Location.findByIdAndRemove(req.params.id, (err) => {
-    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
-    res.send({message: 'Ubicacion Eliminada Exitosamente'})
-  })
+Controller.delete = async (req, res) => {
+  try {
+    const location = await Location.remove({_id: req.params.id})
+    res.send({
+      message: 'Ubicacion eliminada Exitosamente',
+      location: location.ok
+    })
+  }
+  catch (err) {
+    res.status(40).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
  * Get Location list.
  * @param req
  * @param res
- * @param next
  */
-exports.list = (req, res, next) => {
-  const {limit = 50, skip = 0} = req.query
-  Location.list({limit, skip})
-    .then(locations => res.send(locations))
-    .catch(e => next(e))
+Controller.list = async (req, res) => {
+  try {
+    const { limit = 50, skip = 0 } = req.body
+    const location = await Location.list({limit, skip})
+    res.send(location)
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
  * Get last #ID Location.
  * @param req
  * @param res
- * @param next
  */
-exports.last = (req, res, next) => {
-  Location.last().then(locations => {
-    let newId = (locations) ? parseFloat(locations.id_ubicacion) + 1 : 1
+Controller.last = async (req, res) => {
+  try {
+    const location = await Location.last()
+    let newId
+    (location) ? newId = parseFloat(location.id_ubicacion) + 1 : 1
     res.send({id: newId})
-  }).catch(e => next(e))
+  }
+  catch (err) {
+    res.send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
@@ -94,22 +124,27 @@ exports.last = (req, res, next) => {
  * @param req
  * @param res
  */
-exports.byCat = (req, res) => {
+Controller.byCat = async (req, res) => {
   const locationsByCat = []
-  Location
-    .find()
-    .sort({ubicacion: 1})
-    .exec((err, locations) => {
-      if (err) return res.status(400).send(mongooseErrorHandler.set(err))
-      if (!isNumeric(req.params.id)) return res.status(400).send({errors: {message: 'El parametro debe ser Numerico'}})
-      locations.forEach(function (element) {
-        let looper = element.id_categoria.split(';')
-        looper.forEach(function (loop) {
-          if (loop === req.params.id) {
-            locationsByCat.push(element)
-          }
-        })
+  try {
+    const locations = await Location.find().sort({ubicacion: 1}).exec()
+    console.log(req.params.id)
+    if ( !isNumeric(req.params.id) ) {
+      return res.status(400).send({errors: {nessage: 'El parametro debe ser numero'}})
+    }
+    locations.forEach(function (location) {
+      let looper = location.id_categoria.split(';')
+      looper.forEach(function (loop) {
+        if (loop === req.params.id) {
+          locationsByCat.push(location)
+        }
       })
-      res.send(locationsByCat)
     })
+    res.send(locationsByCat)
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
+
+export default Controller
