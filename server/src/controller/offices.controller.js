@@ -1,17 +1,23 @@
-const mongoose = require('mongoose')
-const Office = mongoose.model('oficinas')
+import Office from '../models/offices.model'
+
+const Controller = {}
 
 /**
  * Get Office
  * @param req
  * @param res
  */
-exports.get = (req, res) => {
-  Office.findById(req.params.id, (err, office) => {
-    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
-    if (office.length === 0) return res.status(400).send({errors: {message: "La Oficina no existe"}})
+Controller.get = async (req, res) => {
+  try {
+    const office = await Office.findById(req.params.id)
+    if (office.length === 0) {
+      return res.status(404).send({errors: {message: 'La oficina no existe'}})
+    }
     res.send(office)
-  })
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
@@ -19,13 +25,18 @@ exports.get = (req, res) => {
  * @param req
  * @param res
  */
-exports.create = (req, res) => {
+Controller.create = async (req, res) => {
   let newOffice = new Office(req.body)
-
-  newOffice.save((err, office) => {
-    if (err) return res.status(400).json(mongooseErrorHandler.set(err))
-    res.send({ message: 'Oficina creada exitosamente' })
-  })
+  try {
+    const office = await newOffice.save()
+    res.send({
+      message: 'Oficina creada exitosamente',
+      office: office
+    })
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
@@ -33,11 +44,17 @@ exports.create = (req, res) => {
  * @param req
  * @param res
  */
-exports.update = (req, res) => {
-  Office.findByIdAndUpdate(req.params.id, req.body, (err, office) => {
-    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
-    res.send({ message: 'Oficina actualizada exitosamente' })
-  })
+Controller.update =async (req, res) => {
+  try {
+    const office = await Office.findByIdAndUpdate(req.params.id, req.body)
+    res.send({
+      message: 'Oficina actualizada exitosamente',
+      office: office
+    })
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
@@ -45,11 +62,17 @@ exports.update = (req, res) => {
  * @param req
  * @param res
  */
-exports.delete = (req, res) => {
-  Office.findByIdAndRemove(req.params.id, (err, office) => {
-    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
-    res.send({ message: 'Oficina eliminada exitosamente' })
-  })
+Controller.delete = async (req, res) => {
+  try {
+    const office = await Office.remove({_id: req.params.id})
+    res.send({
+      message: 'Oficina eliminada exitosamente',
+      office: office.ok
+    })
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
@@ -58,8 +81,14 @@ exports.delete = (req, res) => {
  * @param res
  * @param next
  */
-exports.list = (req, res, next) => {
-  Office.list()
-    .then(offices => res.send(offices))
-    .catch(e => next(e))
+Controller.list = async (req, res) => {
+  try {
+    const offices = await Office.list()
+    res.send(offices)
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
+
+export default Controller
