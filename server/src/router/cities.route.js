@@ -1,7 +1,6 @@
-const express = require('express')
-const cityMdl = require('../models/cities.model')
-const cityCtrl = require('../controller/cities.controller')
-const isAuthenticated = require('../policies/isAuthenticated')
+import express from 'express'
+import cityCtrl from '../controller/cities.controller'
+import isAuthenticated from '../policies/isAuthenticated'
 
 const router = express.Router()
 
@@ -15,4 +14,4 @@ router.route('/:id')
   .put(isAuthenticated, cityCtrl.update)
   .delete(isAuthenticated, cityCtrl.delete)
 
-module.exports = router
+export default router

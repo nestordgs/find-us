@@ -1,17 +1,24 @@
-const mongoose = require('mongoose')
-const City = mongoose.model('ciudades')
+import City from '../models/cities.model'
+
+const Controller = {}
 
 /**
  * Get City
  * @param req
  * @param res
  */
-exports.get = (req, res) => {
-  City.find({id_ciudad: req.params.id}, (err, city) => {
-    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
-    if (city.length === 0) return res.status(404).send({errors: {message: "La Ciudad no existe"}})
+Controller.get = async (req, res) => {
+  try {
+    const city = await City.find({id_ciudad: req.params.id}).exec()
+    if (city.length === 0) {
+      return res.status(404)
+        .send({errors: {message: 'La ciudad no existe'}})
+    }
     res.send(city)
-  })
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
@@ -19,18 +26,23 @@ exports.get = (req, res) => {
  * @param req
  * @param res
  */
-exports.create = (req, res) => {
+Controller.create = async (req, res) => {
   let newCity = new City({
     id_ciudad: req.body.id_ciudad,
     ciudad: req.body.ciudad,
     id_ubicacion: req.body.id_ubicacion,
     id_categoria: req.body.id_categoria.join(';')
   })
-  
-  newCity.save((err, city) => {
-    if (err) return res.status(400).json(mongooseErrorHandler.set(err))
-    res.send({ message: 'Ciudad creada exitosamente' })
-  })
+  try {
+    const city = await newCity.save()
+    res.send({
+      message: 'Ciudad creada exitosamente',
+      city: city
+    })
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
@@ -38,11 +50,17 @@ exports.create = (req, res) => {
  * @param req
  * @param res
  */
-exports.update = (req, res) => {
-  City.findByIdAndUpdate(req.params.id, req.body, (err, city) => {
-    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
-    res.send({ message: 'Ciudad actualizada exitosamente' })
-  })
+Controller.update = async (req, res) => {
+  try {
+    const city = await City.findByIdAndUpdate(req.params.id, req.body)
+    res.send({
+      message: 'Ciudad modificada exitosamente',
+      city: city
+    })
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
@@ -50,11 +68,17 @@ exports.update = (req, res) => {
  * @param req
  * @param res
  */
-exports.delete = (req, res) => {
-  City.findByIdAndRemove(req.params.id, (err, city) => {
-    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
-    res.send({ message: 'Ciudad eliminada exitosamente' })
-  })
+Controller.delete = async (req, res) => {
+  try {
+    const city = await City.remove({_id: req.params.id})
+    res.send({
+      mesage: 'Ciudad elminada exitosamente',
+      city: city.ok
+    })
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
@@ -62,23 +86,31 @@ exports.delete = (req, res) => {
  * @param req
  * @param res
  */
-exports.list = (req, res, next) => {
-  City.list()
-    .then(cities => res.send(cities))
-    .catch(e => next(e))
+Controller.list = async (req, res) => {
+  try {
+    const cities = await City.list()
+      res.send(cities)
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
  * Get last #ID City
  * @param req
  * @param res
- * @param next
  */
-exports.last = (req, res, next) => {
-  City.last()
-    .then(city => {
-      let newID = (city) ? parseFloat(city.id_ciudad) + 1 : 1
-      res.send({ id: newID })
-    })
-    .catch(e => next(e))
+Controller.last = async (req, res) => {
+  try {
+    const city = await City.last()
+    let newId
+    (city) ? newId = parseFloat(city.id_ciudad) +1 : 1
+    res.send({id: newId})
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
+
+export default Controller
