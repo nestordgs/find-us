@@ -1,7 +1,6 @@
-const express = require('express')
-const atmMdl = require('../models/atms.model')
-const atmCtrl = require('../controller/atms.controller')
-const isAuthenticated = require('../policies/isAuthenticated')
+import express from 'express'
+import atmCtrl from '../controller/atms.controller'
+import isAuthenticated from '../policies/isAuthenticated'
 
 const router = express.Router()
 
