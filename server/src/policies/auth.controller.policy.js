@@ -1,6 +1,6 @@
-const Joi = require('joi')
+import Joi from 'joi'
 
-module.exports = {
+const Controller  = {
   register (req, res, next) {
     const schema = Joi.object().keys({
       nombre: Joi.string().min(3).max(30).required(),
@@ -42,3 +42,5 @@ module.exports = {
     })
   }
 }
+
+export default Controller
