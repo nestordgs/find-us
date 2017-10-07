@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const CategorySchema = new Schema({
@@ -59,4 +59,5 @@ CategorySchema.statics = {
   }
 }
 
-module.exports = mongoose.model('categoria', CategorySchema)
+let CategoryModel = mongoose.model('categoria', CategorySchema)
+export default CategoryModel
