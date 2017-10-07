@@ -1,7 +1,6 @@
-const express = require('express')
-const User = require('../models/user.model')
-const jwt = require('jsonwebtoken')
-const config = require('../config/config')
+import User from '../models/user.model'
+import jwt from 'jsonwebtoken'
+import config from '../config/config'
 
 function jwtSignUser (user) {
   const ONE_WEEK = 60 * 60 * 24 * 7
@@ -11,10 +10,15 @@ function jwtSignUser (user) {
 }
 
 
-module.exports = {
+const AuthController = {
   async register (req, res) {
+    let newUser = new User({
+      nombre: req.body.nombre,
+      email: req.body.email,
+      password: req.body.password
+    })
     try {
-      const user = await User.create(req.body)
+      const user = await newUser.save()
       res.send(user.toJSON())
     } catch (err) {
       res.status(400).send({
@@ -59,3 +63,5 @@ module.exports = {
     }
   }
 }
+
+export default AuthController
