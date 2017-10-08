@@ -1,12 +1,7 @@
 import Location from '../models/location.model'
+import { isNumeric } from '../helpers'
 
 const Controller = {}
-
-function isNumeric (value) {
-  let type = typeof value
-
-  return (type === 'number' || type === 'string') && !Number.isNaN(value - Number.parseFloat(value))
-}
 
 /**
  * Get Location.
@@ -16,7 +11,7 @@ function isNumeric (value) {
 Controller.get = async (req, res) => {
   try {
     const location = await Location.find({id_ubicacion: req.params.id})
-    if (location.length ===0) {
+    if (location.length === 0) {
       return res.status(404)
         .send({errors: {message: 'La ubicacion no existe'}})
     }
@@ -57,7 +52,7 @@ Controller.create = async (req, res) => {
  */
 Controller.update = async (req, res) => {
   try {
-    const location = await Location.findByIdAndUpdate(req.params.id,req.body)
+    const location = await Location.findByIdAndUpdate(req.params.id, req.body)
     res.send({
       message: 'Ubicacion actualizada Exitosamente',
       location: location
@@ -93,7 +88,7 @@ Controller.delete = async (req, res) => {
  */
 Controller.list = async (req, res) => {
   try {
-    const { limit = 50, skip = 0 } = req.body
+    const {limit = 50, skip = 0} = req.body
     const location = await Location.list({limit, skip})
     res.send(location)
   }
@@ -128,8 +123,7 @@ Controller.byCat = async (req, res) => {
   const locationsByCat = []
   try {
     const locations = await Location.find().sort({ubicacion: 1}).exec()
-    console.log(req.params.id)
-    if ( !isNumeric(req.params.id) ) {
+    if (!isNumeric(req.params.id)) {
       return res.status(400).send({errors: {nessage: 'El parametro debe ser numero'}})
     }
     locations.forEach(function (location) {

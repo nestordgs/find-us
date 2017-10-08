@@ -87,7 +87,7 @@ Controller.delete = async (req, res) => {
  */
 Controller.list = async (req, res) => {
   try {
-    const { limit = 50, skip = 0 } = req.query
+    const {limit = 50, skip = 0} = req.query
     const categorys = await Category.list({limit, skip})
     res.send(categorys)
   }

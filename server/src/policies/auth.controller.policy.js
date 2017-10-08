@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-const Controller  = {
+const Controller = {
   register (req, res, next) {
     const schema = Joi.object().keys({
       nombre: Joi.string().min(3).max(30).required(),

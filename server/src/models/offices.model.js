@@ -19,38 +19,38 @@ const OfficeSchema = new Schema({
     type: String,
     required: 'Direccion oficina es requerido'
   },
-	lngLat: {
-		type: Schema.Types.Mixed,
-		required: [true, 'Debe seleccionar la latitud & Longitud']
+  lngLat: {
+    type: Schema.Types.Mixed,
+    required: [true, 'Debe seleccionar la latitud & Longitud']
   },
   telefono: {
     type: [Schema.Types.Mixed],
   },
-	lun_vie: {
-		type: Array,
-		validate: {
-			validator: arr => {
-				return arr.every((v) => typeof v === 'string') && arr.length > 0
-			},
-			message: '{VALUE} No es un dia de la semana correcto'
-		},
-		required: [true, 'debe seleccionar al menos un dia de trabajo']
-	},
-	horario_trabajo: {
+  lun_vie: {
+    type: Array,
+    validate: {
+      validator: arr => {
+        return arr.every((v) => typeof v === 'string') && arr.length > 0
+      },
+      message: '{VALUE} No es un dia de la semana correcto'
+    },
+    required: [true, 'debe seleccionar al menos un dia de trabajo']
+  },
+  horario_trabajo: {
     type: Object,
     required: [true, 'Debe seleccionar el horario de trabajo']
   },
   navideno: {
     type: Schema.Types.Mixed,
-    default: { desde: '', hasta:'' }
+    default: {desde: '', hasta: ''}
   },
   sabados: {
-	  type: Schema.Types.Mixed,
-	  default: { desde: '', hasta:'' }
+    type: Schema.Types.Mixed,
+    default: {desde: '', hasta: ''}
   },
   feriados: {
-	  type: Schema.Types.Mixed,
-	  default: { desde: '', hasta:'' }
+    type: Schema.Types.Mixed,
+    default: {desde: '', hasta: ''}
   },
   lun_vie_externas: {
     type: String,
@@ -113,7 +113,7 @@ OfficeSchema.statics = {
    */
   list () {
     return this.find()
-      .sort({ createdAt: 1})
+      .sort({createdAt: 1})
       .exec()
   }
 }

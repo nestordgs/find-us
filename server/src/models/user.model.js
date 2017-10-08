@@ -30,7 +30,7 @@ UserSchema.pre('save', function (next) {
   const SALT_FACTOR = 8
 
   if (!user.isModified('password')) {
-    return next();
+    return next()
   }
 
   return bcrypt

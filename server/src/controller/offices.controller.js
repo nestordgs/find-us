@@ -44,7 +44,7 @@ Controller.create = async (req, res) => {
  * @param req
  * @param res
  */
-Controller.update =async (req, res) => {
+Controller.update = async (req, res) => {
   try {
     const office = await Office.findByIdAndUpdate(req.params.id, req.body)
     res.send({
