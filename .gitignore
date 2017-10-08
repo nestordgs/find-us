@@ -1,6 +1,15 @@
+# Dependency directory
 server/node_modules
 front/node_modules
 
+#dist
+*/dist
+
+#folder create by JetBrains ide
 .idea/
+
+#logs
 npm-debug.log
+
+#server config
 server/src/config/config.js
