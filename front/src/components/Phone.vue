@@ -6,7 +6,7 @@
         <v-icon class="blue-grey--text text--darken-2">add</v-icon>
       </v-btn>
     </v-card-text>
-    <v-layout row v-for="(phone, index) in data" :key="phone.id">
+    <v-layout row wrap v-for="(phone, index) in data" :key="phone.id">
       <v-flex xs12 sm5>
         <v-text-field label="Numero de Telefono" name="phone[]" v-model="phone.telefono" :id="'telefono_' + index"
                       prepend-icon="phone" required :rules="phoneRules"></v-text-field>

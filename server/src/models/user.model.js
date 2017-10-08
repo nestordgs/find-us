@@ -1,7 +1,9 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+import Promise from 'bluebird'
+import bcryptNodejs from 'bcrypt-nodejs'
+
 const Schema = mongoose.Schema
-const Promise = require('bluebird')
-const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'))
+const bcrypt = Promise.promisifyAll(bcryptNodejs)
 
 const UserSchema = new Schema({
   nombre: {
@@ -44,4 +46,6 @@ UserSchema.methods.comparePassword = function (password) {
   return bcrypt.compareAsync(password, this.password)
 }
 
-module.exports = mongoose.model('user', UserSchema)
+let UserModel = mongoose.model('user', UserSchema)
+
+export default UserModel

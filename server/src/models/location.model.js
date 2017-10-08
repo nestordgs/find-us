@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+
 const Schema = mongoose.Schema
 
 const LocationSchema = new Schema({
@@ -58,4 +59,6 @@ LocationSchema.statics = {
   }
 }
 
-module.exports = mongoose.model('ubicaciones', LocationSchema)
+let LocationModel = mongoose.model('ubicaciones', LocationSchema)
+
+export default LocationModel

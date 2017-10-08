@@ -1,17 +1,23 @@
-const mongoose = require('mongoose')
-const Atms = mongoose.model('cajeros')
+import Atms from '../models/atms.model'
+
+const Controller = {}
 
 /**
  * Get ATM
  * @param req
  * @param res
  */
-exports.get = (req, res) => {
-	Atms.findById(req.params.id, (err, atm) => {
-		if (err) return res.status(400).send(mongooseErrorHandler.set(err))
-		if (atm.length === 0) return res.status(404).send({errors: {message: "El Cajero no existe"}})
-		res.send(atm)
-	})
+Controller.get = async (req, res) => {
+  try {
+    const atm = await Atms.findById(req.params.id)
+    if (atm.length === 0) {
+      res.status(404).send({errors: {message: 'El cajero no existe'}})
+    }
+    res.send(atm)
+  }
+  catch (err) {
+    res.send(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
@@ -19,13 +25,18 @@ exports.get = (req, res) => {
  * @param req
  * @param res
  */
-exports.create= (req, res) => {
-	let newAtm = new Atms(req.body)
-
-	newAtm.save((err, atm) => {
-		if (err) return res.status(400).json(mongooseErrorHandler.set(err))
-		res.send({ message: 'Cajero creado Exitosamente' })
-	})
+Controller.create = async (req, res) => {
+  let newAtm = new Atms(req.body)
+  try {
+    const atm = await newAtm.save()
+    res.send({
+      message: 'Cajero creado exitosamente',
+      atm: atm
+    })
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
@@ -33,11 +44,17 @@ exports.create= (req, res) => {
  * @param req
  * @param res
  */
-exports.update = (req, res) => {
-	Atms.findByIdAndUpdate(req.params.id, req.body, (err, atm) => {
-		if (err) return res.status(400).send(mongooseErrorHandler.set(err))
-		res.send({ message: 'Cajero actualizado exitosamente' })
-	})
+Controller.update = async (req, res) => {
+  try {
+    const atm = await Atms.findOneAndUpdate(req.params.id, req.body)
+    res.send({
+      message: 'Cajero Actualizado exitosamente',
+      atm: atm
+    })
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
@@ -45,11 +62,17 @@ exports.update = (req, res) => {
  * @param req
  * @param res
  */
-exports.delete = (req, res) => {
-	Atms.findByIdAndRemove(req.params.id, (err, atm) => {
-		if (err) return res.status(400).send(mongooseErrorHandler.set(err))
-		res.send({ message: 'Cajero eliminado exitosamente' })
-	})
+Controller.delete = async (req, res) => {
+  try {
+    const atm = await Atms.remove({_id:req.params.id})
+    res.send({
+      message: 'Cajero eliminado exitosamente',
+      atm: atm.ok
+    })
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
@@ -58,8 +81,14 @@ exports.delete = (req, res) => {
  * @param res
  * @param next
  */
-exports.list = (req, res, next) => {
-	Atms.list()
-		.then(atm => res.send(atm))
-		.catch(e => next(e))
+Controller.list = async (req, res) => {
+  try {
+    const atms = await Atms.list()
+    res.send(atms)
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
+
+export default Controller

@@ -4,14 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node node_modules/nodemon/bin/nodemon.js src/app.js --exec",
+    "start": "nodemon src/app.js --exec babel-node",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "serve": "node dist/src/app.js",
+    "start_babel": "babel-node src/app.js --preset=babel-preset-es2015",
     "lint": "node node_modules/.bin/eslint **.*.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Nestor Gutiérrez <nesor2@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.5.1",
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",
     "eslint": "^4.6.1",
@@ -26,10 +30,13 @@
     "passport-jwt": "^3.0.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-standard": "^3.0.1",
+    "rimraf": "^2.6.2"
   }
 }

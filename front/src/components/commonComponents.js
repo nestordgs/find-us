@@ -1,9 +1,9 @@
 import Vue from 'vue'
 
-import Phone from '@/components/phone'
-import LocationMap from '@/components/locationMap'
-import DialogInfo from '@/components/dialog.info'
-import WorkingHours from '@/components/workingHours'
+import Phone from '@/components/Phone'
+import LocationMap from '@/components/LocationMap'
+import DialogInfo from '@/components/DialogInfo'
+import WorkingHours from '@/components/WorkingHours'
 import FormCategory from '@/components/category/form'
 import FormLocation from '@/components/locations/form'
 import FormCities from '@/components/cities/form'

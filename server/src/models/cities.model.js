@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+
 const Schema = mongoose.Schema
 
 const CitySchema = new Schema({
@@ -44,4 +45,6 @@ CitySchema.statics = {
   }
 }
 
-module.exports = mongoose.model('ciudades', CitySchema)
+let CityModel = mongoose.model('ciudades', CitySchema)
+
+export default CityModel

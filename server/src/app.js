@@ -1,11 +1,12 @@
 global.mongooseErrorHandler = require('mongoose-error-handler')
 
-const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const morgan = require('morgan')
-const mongoose = require('mongoose')
-const config = require('./config/config')
+import express from 'express'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import morgan from 'morgan'
+import mongoose from 'mongoose'
+import config from './config/config'
+import router from './router'
 
 const app = express()
 
@@ -13,7 +14,7 @@ app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
 
-require('./passport')
+import './passport'
 
 mongoose.connect(config.db.url, config.db.opt)
 let conn = mongoose.connection
@@ -24,6 +25,6 @@ conn.once('open', function () {
   console.log('Great success!')
 })
 
-app.use('/api', require('./router'))
+app.use('/api', router)
 
 app.listen(config.port)

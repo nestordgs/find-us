@@ -1,12 +1,12 @@
-const express = require('express')
-const categoryRoutes = require('../router/category.route')
-const locationRoutes = require('../router/location.route')
-const cityRoutes = require('../router/cities.route')
-const officeRoutes = require('./offices.route')
-const atmRoutes = require('./atms.route')
+import express from 'express'
+import categoryRoutes from './category.route'
+import locationRoutes from './location.route'
+import cityRoutes from './cities.route'
+import officeRoutes from './offices.route'
+import atmRoutes from './atms.route'
 
-const AuthCtrl = require('../controller/auth.controller')
-const AuthCtrlPolicy = require('../policies/auth.controller.policy')
+import AuthCtrl from '../controller/auth.controller'
+import AuthCtrlPolicy from '../policies/auth.controller.policy'
 
 const router = express.Router()
 
@@ -34,4 +34,4 @@ router.use('/city', cityRoutes)
 router.use('/office', officeRoutes)
 router.use('/atm', atmRoutes)
 
-module.exports = router
+export default router

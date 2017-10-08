@@ -1,7 +1,6 @@
-const express = require('express')
-const categoryMdl = require('../models/categoryModels')
-const categoryCtrl = require('../controller/category.controller')
-const isAuthenticated = require('../policies/isAuthenticated')
+import express from 'express'
+import categoryCtrl from '../controller/category.controller'
+import isAuthenticated from '../policies/isAuthenticated'
 
 const router = express.Router()
 
@@ -17,4 +16,4 @@ router.route('/:id')
   .put(isAuthenticated, categoryCtrl.update)
   .delete(isAuthenticated, categoryCtrl.delete)
 
-module.exports = router
+export default router

@@ -1,17 +1,24 @@
-const mongoose = require('mongoose')
-const Category = mongoose.model('categoria')
+import Category from '../models/category.model'
+
+const Controller = {}
 
 /**
  * Get Category.
  * @param req
  * @param res
  */
-exports.get = (req, res) => {
-  Category.find({id_categoria: req.params.id}, (err, category) => {
-    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
-    if (category.length === 0) return res.status(404).send({errors: {message: "La Categoria no existe"}})
+Controller.get = async (req, res) => {
+  try {
+    const category = await Category.find({id_categoria: req.params.id}).exec()
+    if (category.length === 0) {
+      return res.status(404)
+        .send({errors: {message: 'La Categoria no existe'}})
+    }
     res.send(category)
-  })
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
@@ -19,17 +26,22 @@ exports.get = (req, res) => {
  * @param req
  * @param res
  */
-exports.create = (req, res) => {
+Controller.create = async (req, res) => {
   let newCategory = new Category({
     id_categoria: req.body.id_categoria,
     categoria: req.body.categoria,
     descripcion: req.body.descripcion
   })
-
-  newCategory.save((err, category) => {
-    if (err) return res.status(400).json(mongooseErrorHandler.set(err))
-    res.send({message: 'Categoria Creada Exitosamente'})
-  })
+  try {
+    const category = await newCategory.save()
+    res.send({
+      message: 'Categoria creada Exitosamente',
+      category: category
+    })
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
@@ -37,11 +49,17 @@ exports.create = (req, res) => {
  * @param req
  * @param res"
  */
-exports.update = (req, res) => {
-  Category.findByIdAndUpdate(req.params.id, req.body, (err, category) => {
-    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
-    res.send({message: 'Categoria Actualizada Exitosamente'})
-  })
+Controller.update = async (req, res) => {
+  try {
+    const category = await Category.findByIdAndUpdate(req.params.id, req.body)
+    res.send({
+      message: 'Categoria Actualizada Exitosamente',
+      category: category
+    })
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
@@ -49,51 +67,65 @@ exports.update = (req, res) => {
  * @param req
  * @param res
  */
-exports.delete = (req, res) => {
-  Category.findByIdAndRemove(req.params.id, (err, category) => {
-    if (err) return res.status(400).send(mongooseErrorHandler.set(err))
-    res.send({message: 'Categoria Eliminada Exitosamente'})
-  })
+Controller.delete = async (req, res) => {
+  try {
+    const category = await Category.remove({_id: req.params.id})
+    res.send({
+      message: 'Categoria Eliminada Exitosamente',
+      category: category.ok
+    })
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
  * Get Category list.
  * @param req
  * @param res
- * @param next
  */
-exports.list = (req, res, next) => {
-  const { limit = 50, skip = 0 } = req.query
-  Category.list({limit, skip})
-    .then(categorys => res.send(categorys))
-    .catch(e => next(e))
+Controller.list = async (req, res) => {
+  try {
+    const { limit = 50, skip = 0 } = req.query
+    const categorys = await Category.list({limit, skip})
+    res.send(categorys)
+  }
+  catch (err) {
+    res.send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
  * Get last #ID Category.
  * @param req
  * @param res
- * @param next
  */
-exports.last = (req, res, next) => {
-  Category.last().then(category => {
-    console.log(category)
+Controller.last = async (req, res) => {
+  try {
+    const category = await Category.last()
     let newId
     (category) ? newId = parseFloat(category.id_categoria) + 1 : newId = 1
     res.send({id: newId})
-  }).catch(e => next(e))
+  }
+  catch (err) {
+    res.send(mongooseErrorHandler.set(err))
+  }
 }
 
 /**
  * Get Categorys in Array.
  * @param req
  * @param res
- * @param next
  */
-exports.getIn = (req, res, next) => {
-  Category.getByArray(req.body.opt)
-    .then(categorys => {
-      res.send(categorys)
-    })
-    .catch(e => next(e))
+Controller.getIn = async (req, res) => {
+  try {
+    const categorys = await Category.getByArray(req.body.opt)
+    res.send(categorys)
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
 }
+
+export default Controller

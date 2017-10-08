@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+
 const Schema = mongoose.Schema
 
 const OfficeSchema = new Schema({
@@ -117,4 +118,6 @@ OfficeSchema.statics = {
   }
 }
 
-module.exports = mongoose.model('oficinas', OfficeSchema)
+let OfficeModel = mongoose.model('oficinas', OfficeSchema)
+
+export default OfficeModel
