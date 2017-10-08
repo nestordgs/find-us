@@ -1,12 +1,7 @@
 import Location from '../models/location.model'
+import { isNumeric } from '../helpers'
 
 const Controller = {}
-
-function isNumeric (value) {
-  let type = typeof value
-
-  return (type === 'number' || type === 'string') && !Number.isNaN(value - Number.parseFloat(value))
-}
 
 /**
  * Get Location.
