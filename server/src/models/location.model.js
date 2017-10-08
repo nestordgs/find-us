@@ -29,9 +29,9 @@ LocationSchema.statics = {
    * @param {number} limit - Limit number of locations to be returned.
    * @returns {Promise<Location[]>}
    */
-  list ({ skip = 0, limit = 50 } = {}) {
+  list ({skip = 0, limit = 50} = {}) {
     return this.find()
-      .sort({ id_ubicacion: 1 })
+      .sort({id_ubicacion: 1})
       .skip(+skip)
       .limit(+limit)
       .exec()
@@ -54,7 +54,7 @@ LocationSchema.statics = {
   last () {
     return this.findOne()
       .select('id_ubicacion')
-      .sort({ id_ubicacion: -1 })
+      .sort({id_ubicacion: -1})
       .exec()
   }
 }

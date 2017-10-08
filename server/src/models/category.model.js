@@ -29,9 +29,9 @@ CategorySchema.statics = {
    * @param {number} limit - Limit number of categorys to be returned.
    * @returns {Promise<Category[]>}
    */
-  list ({ skip = 0, limit = 50 } = {}) {
+  list ({skip = 0, limit = 50} = {}) {
     return this.find()
-      .sort({ id_categoria: 1 })
+      .sort({id_categoria: 1})
       .skip(+skip)
       .limit(+limit)
       .exec()
@@ -43,7 +43,7 @@ CategorySchema.statics = {
   last () {
     return this.findOne()
       .select('id_categoria')
-      .sort({ id_categoria: -1 })
+      .sort({id_categoria: -1})
       .exec()
   },
   /**
@@ -55,7 +55,7 @@ CategorySchema.statics = {
     return this.find()
       .where('id_categoria')
       .in(opt)
-      .sort({ id_categoria: 1 })
+      .sort({id_categoria: 1})
       .exec()
   }
 }

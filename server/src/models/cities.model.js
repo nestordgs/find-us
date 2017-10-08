@@ -30,7 +30,7 @@ CitySchema.statics = {
    */
   list () {
     return this.find()
-      .sort({ id_ciudad: 1})
+      .sort({id_ciudad: 1})
       .exec()
   },
   /**
@@ -40,7 +40,7 @@ CitySchema.statics = {
   last () {
     return this.findOne()
       .select('id_ciudad')
-      .sort({ id_ciudad: -1 })
+      .sort({id_ciudad: -1})
       .exec()
   }
 }

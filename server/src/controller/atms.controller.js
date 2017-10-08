@@ -64,7 +64,7 @@ Controller.update = async (req, res) => {
  */
 Controller.delete = async (req, res) => {
   try {
-    const atm = await Atms.remove({_id:req.params.id})
+    const atm = await Atms.remove({_id: req.params.id})
     res.send({
       message: 'Cajero eliminado exitosamente',
       atm: atm.ok

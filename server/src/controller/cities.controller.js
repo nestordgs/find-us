@@ -89,7 +89,7 @@ Controller.delete = async (req, res) => {
 Controller.list = async (req, res) => {
   try {
     const cities = await City.list()
-      res.send(cities)
+    res.send(cities)
   }
   catch (err) {
     res.status(400).send(mongooseErrorHandler.set(err))
@@ -105,7 +105,7 @@ Controller.last = async (req, res) => {
   try {
     const city = await City.last()
     let newId
-    (city) ? newId = parseFloat(city.id_ciudad) +1 : 1
+    city ? newId = parseFloat(city.id_ciudad) + 1 : 1
     res.send({id: newId})
   }
   catch (err) {
