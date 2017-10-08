@@ -7,6 +7,7 @@ import morgan from 'morgan'
 import mongoose from 'mongoose'
 import config from './config/config'
 import router from './router'
+import bluebird from 'bluebird'
 
 const app = express()
 
@@ -16,6 +17,7 @@ app.use(cors())
 
 import './passport'
 
+mongoose.Promise = bluebird
 mongoose.connect(config.db.url, config.db.opt)
 let conn = mongoose.connection
 
