@@ -1,7 +1,6 @@
-const express = require('express')
-const officeMdl = require('../models/offices.model')
-const officeCtrl = require('../controller/offices.controller')
-const isAuthenticated = require('../policies/isAuthenticated')
+import express from 'express'
+import officeCtrl from '../controller/offices.controller'
+import isAuthenticated from '../policies/isAuthenticated'
 
 const router = express.Router()
 
@@ -13,4 +12,4 @@ router.route('/:id')
   .put(isAuthenticated, officeCtrl.update)
   .delete(isAuthenticated, officeCtrl.delete)
 
-module.exports = router
+export default router
