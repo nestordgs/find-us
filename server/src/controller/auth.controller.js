@@ -9,7 +9,6 @@ function jwtSignUser (user) {
   })
 }
 
-
 const AuthController = {
   async register (req, res) {
     let newUser = new User({

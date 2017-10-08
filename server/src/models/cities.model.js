@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+
 const Schema = mongoose.Schema
 
 const CitySchema = new Schema({
@@ -45,4 +46,5 @@ CitySchema.statics = {
 }
 
 let CityModel = mongoose.model('ciudades', CitySchema)
+
 export default CityModel

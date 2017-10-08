@@ -12,4 +12,4 @@ router.route('/:id')
   .put(isAuthenticated, atmCtrl.update)
   .delete(isAuthenticated, atmCtrl.delete)
 
-module.exports = router
+export default router
