@@ -108,12 +108,24 @@ const OfficeSchema = new Schema({
 
 OfficeSchema.statics = {
   /**
-   * List cities in ascending order of 'createdAt'.
-   * @returns {Promise<Offices[]>}
+   * List offices in ascending order of 'createdAt'.
+   * @returns {Array<office[]>}
    */
   list () {
     return this.find()
       .sort({createdAt: 1})
+      .exec()
+  },
+  /**
+   * List offices in descending order of 'nombre' if this is like param
+   * @param name
+   * @return {Array<office[]>}
+   */
+  byName (name) {
+    return this.find()
+      .where({'nombre': {$regex: name, $options: 'gi'}})
+      .sort({nombre: 1})
+      .limit(20)
       .exec()
   }
 }

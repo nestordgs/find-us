@@ -11,5 +11,7 @@ router.route('/:id')
   .get(officeCtrl.get)
   .put(isAuthenticated, officeCtrl.update)
   .delete(isAuthenticated, officeCtrl.delete)
+router.route('/name/:name')
+  .get(officeCtrl.byName)
 
 export default router

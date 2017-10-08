@@ -79,11 +79,29 @@ Controller.delete = async (req, res) => {
  * Get Offices list ordered by #createdAt
  * @param req
  * @param res
- * @param next
  */
 Controller.list = async (req, res) => {
   try {
     const offices = await Office.list()
+    res.send(offices)
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
+}
+
+/**
+ * Get Offices list order by #nombre if this is like params.name
+ * @param req
+ * @param res
+ * @return {Promise.<void>}
+ */
+Controller.byName = async (req, res) => {
+  try {
+    const offices = await Office.byName(req.params.name)
+    if (offices.length === 0) {
+      res.status(404).send({errors: {message: 'No existen oficinas con los parametros solicitados'}})
+    }
     res.send(offices)
   }
   catch (err) {
