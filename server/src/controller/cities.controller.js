@@ -1,4 +1,5 @@
 import City from '../models/cities.model'
+import { isNumeric } from '../helpers'
 
 const Controller = {}
 
@@ -113,4 +114,25 @@ Controller.last = async (req, res) => {
   }
 }
 
+Controller.byCat = async (req, res) => {
+  const citiesByCategory = []
+  try {
+    const cities = await City.find().sort({ciudad: 1}).exec()
+    if (!isNumeric(req.params.id)) {
+      return res.status(400).send({errors: {nessage: 'El parametro debe ser numero'}})
+    }
+    cities.forEach(function (city) {
+      let looper = city.id_categoria.split(';')
+      looper.forEach(function (loop) {
+        if (loop === req.params.id) {
+          citiesByCategory.push(city)
+        }
+      })
+    })
+    res.send(citiesByCategory)
+  }
+  catch (err) {
+    res.status(400).send(mongooseErrorHandler.set(err))
+  }
+}
 export default Controller
