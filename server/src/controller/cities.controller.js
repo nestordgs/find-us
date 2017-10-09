@@ -118,18 +118,20 @@ Controller.byCat = async (req, res) => {
   const citiesByCategory = []
   try {
     const cities = await City.find().sort({ciudad: 1}).exec()
-    if (!isNumeric(req.params.id)) {
-      return res.status(400).send({errors: {nessage: 'El parametro debe ser numero'}})
+    if (!isNumeric(req.params.idCat)) {
+      return res.status(400).send({errors: {nessage: 'El id_categoria debe ser numero'}})
+    } else if ( !isNumeric(req.params.idUbi) ) {
+      return res.status(400).send({errors: {nessage: 'El id_ubicacion debe ser numero'}})
     }
     cities.forEach(function (city) {
       let looper = city.id_categoria.split(';')
       looper.forEach(function (loop) {
-        if (loop === req.params.id) {
+        if (loop === req.params.idCat && city.id_ubicacion.toString() === req.params.idUbi) {
           citiesByCategory.push(city)
         }
       })
     })
-    res.send(citiesByCategory)
+    res.status(200).send(citiesByCategory)
   }
   catch (err) {
     res.status(400).send(mongooseErrorHandler.set(err))
