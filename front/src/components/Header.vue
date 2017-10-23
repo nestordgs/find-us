@@ -9,10 +9,10 @@
         <v-icon>fa-bars</v-icon>
       </v-btn>
       <v-list>
-        <v-list-tile v-for="item in items" :key="item.title" @click="">
+        <v-list-tile v-for="item in items" :key="item.title">
           <v-list-tile-title>
             <router-link tag="span" :to="{name: item.route}">
-              {{ item.title}}
+              {{ item.title }}
             </router-link>
           </v-list-tile-title>
         </v-list-tile>
@@ -29,7 +29,7 @@
     </v-toolbar-items>
     <v-menu v-if="$store.state.isLoggedIn" bottom right origin="center center" transition="scale-transition">
       <v-btn icon slot="activator" dark>
-        <vue-letter-avatar name="name" size='40' :rounded="true"/>
+        <v-icon>more_vert</v-icon>
       </v-btn>
       <v-list>
         <v-list-tile>
@@ -42,18 +42,16 @@
 
 <script>
   export default {
+    props: {
+      items: {
+        type: Array,
+        required: true
+      }
+    },
     data () {
       return {
         drawer: false,
-        items: [
-          {title: 'Inicio', icon: 'dashboard', route: 'Hello'},
-          {title: 'Categorias', icon: 'dashboard', route: 'Categorias'},
-          {title: 'Ubicaciones', icon: 'fa-location-arrow', route: 'Ubicaciones'},
-          {title: 'Ciudades', icon: 'fa-map-marker', route: 'Ciudades'},
-          {title: 'Oficinas', icon: 'fa-globe', route: 'Oficinas'}
-        ],
-        right: null,
-        name: this.$store.state.user.name || ''
+        right: null
       }
     },
     methods: {

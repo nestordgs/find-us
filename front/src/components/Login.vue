@@ -44,7 +44,6 @@
   export default {
     data () {
       return {
-        nombre: '',
         email: '',
         password: '',
         required: [
@@ -72,7 +71,6 @@
         }
       },
       resetForm () {
-        this.nombre = ''
         this.email = ''
         this.password = ''
       }

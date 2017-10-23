@@ -1,0 +1,19 @@
+{
+  "items": [
+    { 
+      "title": "Inicio", "route": "Hello"
+    },
+    { 
+      "title": "Categorias", "route": "Categorias"
+    },
+    { 
+      "title": "Ubicaciones", "route": "Ubicaciones"
+    },
+    { 
+      "title": "Ciudades", "route": "Ciudades"
+    },
+    { 
+      "title": "Oficinas", "route": "Oficinas"
+    }
+  ]
+}
